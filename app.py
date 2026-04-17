@@ -35,46 +35,21 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    /* Palette verte */
-    :root {
-        --green-primary: #2e7d32;
-        --green-hover: #1b5e20;
-    }
-
     .login-box {
         max-width: 400px;
         margin: auto;
         padding: 2rem;
         border-radius: 15px;
-        /* Dégradé vert au lieu du violet */
-        background: linear-gradient(135deg, var(--green-primary) 0%, #1b5e20 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
     }
-    
     .stTextInput input { border-radius: 8px; }
-    
-    /* Bouton vert */
     .stButton button {
         width: 100%;
         border-radius: 8px;
-        background-color: var(--green-primary) !important;
-        color: white !important;
-        font-weight: bold;
-        border: none !important;
-    }
-    
-    .stButton button:hover {
-        background-color: var(--green-hover) !important;
-    }
-
-    /* Barre de titre personnalisée */
-    .title-bar {
-        background-color: var(--green-primary);
-        padding: 15px;
+        background: #667eea;
         color: white;
-        text-align: center;
-        border-radius: 10px;
-        margin-bottom: 20px;
+        font-weight: bold;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -87,36 +62,38 @@ if 'user' not in st.session_state:
 
 # ─── PAGE LOGIN ───────────────────────────────────────────────────────────────
 def show_login():
-    st.markdown('<div class="title-bar"><h1>🚚 Smart Green Logistics</h1></div>', unsafe_allow_html=True)
-    
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image("assets/logo-removebg-preview.png", width=150)
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=80)
+        st.title("Smart Green Logistics 🚚")
+        st.markdown("---")
         st.subheader("🔐 Connexion")
 
-    with st.form("login_form"):
-        user_id = st.text_input("👤 ID Utilisateur", placeholder="Ex: 1")
-        password = st.text_input("🔑 Mot de passe", type="password", placeholder="Votre mot de passe")
-        submit = st.form_submit_button("Se connecter", use_container_width=True)
+        with st.form("login_form"):
+            user_id = st.text_input("👤 ID Utilisateur", placeholder="Ex: 1")
+            password = st.text_input("🔑 Mot de passe", type="password", placeholder="Votre mot de passe")
+            submit = st.form_submit_button("Se connecter", use_container_width=True)
 
-        if submit:
-            users = load_users()
-            match = users[(users['id'] == user_id) & (users['password'] == password)]
-            if not match.empty:
-                st.session_state.logged_in = True
-                st.session_state.user = match.iloc[0].to_dict()
-                st.rerun()
-            else:
-                st.error("❌ ID ou mot de passe incorrect")
+            if submit:
+                users = load_users()
+                match = users[(users['id'] == user_id) & (users['password'] == password)]
+                if not match.empty:
+                    st.session_state.logged_in = True
+                    st.session_state.user = match.iloc[0].to_dict()
+                    st.rerun()
+                else:
+                    st.error("❌ ID ou mot de passe incorrect")
 
         st.markdown("---")
         st.caption("💡 Contactez votre responsable pour obtenir vos identifiants")
+
 # ─── INTERFACE CHAUFFEUR ──────────────────────────────────────────────────────
 def show_chauffeur():
     user = st.session_state.user
 
     with st.sidebar:
-        st.image("assets/logo-removebg-preview.png", width=150)
+        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=60)
         st.markdown(f"### 👋 Bonjour, {user['nom']}")
         st.markdown(f"**Rôle :** 🚛 Chauffeur")
         st.markdown("---")
@@ -186,7 +163,7 @@ def show_responsable():
     user = st.session_state.user
 
     with st.sidebar:
-        st.image("assets/logo-removebg-preview.png", width=150)
+        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=60)
         st.markdown(f"### 👋 Bonjour, {user['nom']}")
         st.markdown(f"**Rôle :** 📊 Responsable Logistique")
         st.markdown("---")
