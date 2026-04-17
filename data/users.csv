@@ -1,1 +1,6 @@
-
+id,nom,password,role
+1,Ahmed,chauffeur123,chauffeur
+2,Mohamed,chauffeur456,chauffeur
+3,Karim,chauffeur789,chauffeur
+4,Sara,respo123,responsable
+5,Leila,respo456,responsable
