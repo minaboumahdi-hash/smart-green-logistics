@@ -1,5 +1,3 @@
-import streamlit as st
-st.write("🔥 DEPLOY TEST - IF YOU SEE THIS, IT WORKS 🔥")
 import sys
 import os
 sys.path.append(os.path.dirname(__file__))
@@ -46,7 +44,7 @@ st.markdown("""
 
 # ─── Sidebar ─────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.image("assets/logo.png", width=100)
+    st.image("assets/logo.jpeg", width=100)
     st.title("Smart Green Logistics 🚚")
     st.markdown("---")
     
@@ -66,7 +64,7 @@ with st.sidebar:
     st.info("💡 **Hackathon Mode** — Prototype IA logistique")
 
 # ─── Contenu principal ───────────────────────────────────────────────────────
-st.title("🚚 Smart Green Logistics — Optimisation Logistique")
+st.title("🚚 Optimisation Logistique")
 st.markdown("Réduction des trajets à vide · Optimisation des chargements · Prédiction de la demande")
 st.markdown("---")
 
