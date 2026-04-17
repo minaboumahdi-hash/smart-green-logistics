@@ -25,7 +25,7 @@ def predict_demand(df, horizon):
 
 # ─── Configuration de la page ───────────────────────────────────────────────
 st.set_page_config(
-    page_title="LogiSmart AI",
+    page_title="Smart Green Logistics",
     page_icon="🚚",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -44,8 +44,8 @@ st.markdown("""
 
 # ─── Sidebar ─────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.image("https://img.icons8.com/color/96/delivery-truck.png", width=80)
-    st.title("LogiSmart AI 🚚")
+    st.image("assets/logo.png", width=100", width=80)
+    st.title("Smart Green Logistics 🚚")
     st.markdown("---")
     
     st.subheader("📂 Charger les données")
@@ -64,7 +64,7 @@ with st.sidebar:
     st.info("💡 **Hackathon Mode** — Prototype IA logistique")
 
 # ─── Contenu principal ───────────────────────────────────────────────────────
-st.title("🚚 LogiSmart AI — Optimisation Logistique")
+st.title("🚚 Optimisation Logistique")
 st.markdown("Réduction des trajets à vide · Optimisation des chargements · Prédiction de la demande")
 st.markdown("---")
 
