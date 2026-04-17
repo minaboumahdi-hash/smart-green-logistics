@@ -44,7 +44,7 @@ st.markdown("""
 
 # ─── Sidebar ─────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.image("assets/logo.png", width=100)
+    st.image("assets/logo.jpeg", width=100)
     st.title("Smart Green Logistics 🚚")
     st.markdown("---")
     
