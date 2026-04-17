@@ -3,12 +3,12 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-# ─── Chargement des utilisateurs ─────────────────────────────────────────────
+
 @st.cache_data
 def load_users():
     return pd.read_csv("data/users.csv", dtype=str)
 
-# ─── Fonctions placeholder ────────────────────────────────────────────────────
+
 def optimize_routes(df, nb_camions, capacite):
     total_poids = df['poids_kg'].sum() if 'poids_kg' in df.columns else 0
     capacite_totale = nb_camions * capacite
@@ -20,12 +20,13 @@ def optimize_routes(df, nb_camions, capacite):
         "empty_trips_avoided": nb_camions - 1
     }
 
+
 def predict_demand(df, horizon):
     days = int(horizon.split()[0])
     dates = pd.date_range(start='today', periods=days)
     return pd.DataFrame({'date': dates, 'commandes_prevues': np.random.randint(50, 200, days)})
 
-# ─── Configuration page ───────────────────────────────────────────────────────
+
 st.set_page_config(
     page_title="Smart Green Logistics",
     page_icon="🚚",
@@ -35,46 +36,38 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    .login-box {
-        max-width: 400px;
-        margin: auto;
-        padding: 2rem;
-        border-radius: 15px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
     .stTextInput input { border-radius: 8px; }
     .stButton button {
         width: 100%;
         border-radius: 8px;
-        background: #667eea;
-        color: white;
+        background-color: #2e7d32 !important;
+        color: white !important;
         font-weight: bold;
+        border: none !important;
+    }
+    .stButton button:hover {
+        background-color: #1b5e20 !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# ─── SESSION STATE ────────────────────────────────────────────────────────────
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
 if 'user' not in st.session_state:
     st.session_state.user = None
 
-# ─── PAGE LOGIN ───────────────────────────────────────────────────────────────
+
 def show_login():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
-        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=80)
-        st.title("Smart Green Logistics 🚚")
+        st.image("assets/logo-removebg-preview.png", width=200)
         st.markdown("---")
         st.subheader("🔐 Connexion")
-
         with st.form("login_form"):
             user_id = st.text_input("👤 ID Utilisateur", placeholder="Ex: 1")
             password = st.text_input("🔑 Mot de passe", type="password", placeholder="Votre mot de passe")
             submit = st.form_submit_button("Se connecter", use_container_width=True)
-
             if submit:
                 users = load_users()
                 match = users[(users['id'] == user_id) & (users['password'] == password)]
@@ -84,18 +77,17 @@ def show_login():
                     st.rerun()
                 else:
                     st.error("❌ ID ou mot de passe incorrect")
-
         st.markdown("---")
         st.caption("💡 Contactez votre responsable pour obtenir vos identifiants")
 
-# ─── INTERFACE CHAUFFEUR ──────────────────────────────────────────────────────
+
 def show_chauffeur():
     user = st.session_state.user
 
     with st.sidebar:
-        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=60)
+        st.image("assets/logo-removebg-preview.png", width=150)
         st.markdown(f"### 👋 Bonjour, {user['nom']}")
-        st.markdown(f"**Rôle :** 🚛 Chauffeur")
+        st.markdown("**Rôle :** 🚛 Chauffeur")
         st.markdown("---")
         if st.button("🚪 Se déconnecter", use_container_width=True):
             st.session_state.logged_in = False
@@ -106,13 +98,14 @@ def show_chauffeur():
     st.markdown("---")
 
     tab1, tab2, tab3, tab4 = st.tabs([
-        "📋 Mes tournées", "🗺️ Ma route", 
-        "✅ Livraisons", "⚠️ Signaler un problème"
+        "📋 Mes tournées",
+        "🗺️ Ma route",
+        "✅ Livraisons",
+        "⚠️ Signaler un problème"
     ])
 
     with tab1:
         st.subheader("📋 Mes tournées assignées")
-        # Données simulées pour la démo
         tournees = pd.DataFrame({
             'Commande': ['CMD001', 'CMD002', 'CMD003'],
             'Client': ['Client A', 'Client B', 'Client C'],
@@ -125,7 +118,6 @@ def show_chauffeur():
 
     with tab2:
         st.subheader("🗺️ Ma route du jour")
-        # Carte simulée
         points = pd.DataFrame({
             'lat': [33.5731, 33.9716, 34.0209],
             'lon': [-7.5898, -6.8498, -6.8416],
@@ -134,7 +126,7 @@ def show_chauffeur():
         fig = px.scatter_mapbox(
             points, lat='lat', lon='lon', hover_name='lieu',
             zoom=8, height=400,
-            color_discrete_sequence=['#667eea']
+            color_discrete_sequence=['#2e7d32']
         )
         fig.update_layout(mapbox_style="open-street-map")
         st.plotly_chart(fig, use_container_width=True)
@@ -150,24 +142,26 @@ def show_chauffeur():
     with tab4:
         st.subheader("⚠️ Signaler un problème")
         type_probleme = st.selectbox("Type de problème", [
-            "🚗 Panne véhicule", "📦 Colis endommagé", 
-            "🚦 Embouteillage / Retard", "📍 Adresse introuvable", "Autre"
+            "🚗 Panne véhicule",
+            "📦 Colis endommagé",
+            "🚦 Embouteillage / Retard",
+            "📍 Adresse introuvable",
+            "Autre"
         ])
         description = st.text_area("Description", placeholder="Décrivez le problème...")
         urgence = st.radio("Niveau d'urgence", ["🟢 Faible", "🟡 Moyen", "🔴 Urgent"])
         if st.button("📤 Envoyer le signalement", type="primary"):
             st.success("✅ Signalement envoyé au responsable !")
 
-# ─── INTERFACE RESPONSABLE ────────────────────────────────────────────────────
+
 def show_responsable():
     user = st.session_state.user
 
     with st.sidebar:
-        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=60)
+        st.image("assets/logo-removebg-preview.png", width=150)
         st.markdown(f"### 👋 Bonjour, {user['nom']}")
-        st.markdown(f"**Rôle :** 📊 Responsable Logistique")
+        st.markdown("**Rôle :** 📊 Responsable Logistique")
         st.markdown("---")
-
         st.subheader("📂 Charger les données")
         uploaded_file = st.file_uploader("Importer CSV de commandes", type=["csv", "xlsx"])
         st.markdown("---")
@@ -184,8 +178,11 @@ def show_responsable():
     st.markdown("---")
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "📋 Toutes les tournées", "🗺️ Optimisation IA",
-        "👥 Gestion chauffeurs", "📈 Prédiction demande", "📊 Dashboard KPI"
+        "📋 Toutes les tournées",
+        "🗺️ Optimisation IA",
+        "👥 Gestion chauffeurs",
+        "📈 Prédiction demande",
+        "📊 Dashboard KPI"
     ])
 
     with tab1:
@@ -202,9 +199,11 @@ def show_responsable():
     with tab2:
         st.subheader("🗺️ Optimisation des tournées (VRP)")
         if uploaded_file is not None:
-            df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith('.csv') else pd.read_excel(uploaded_file)
+            if uploaded_file.name.endswith('.csv'):
+                df = pd.read_csv(uploaded_file)
+            else:
+                df = pd.read_excel(uploaded_file)
             st.success(f"✅ {len(df)} commandes chargées !")
-
             col1, col2 = st.columns([2, 1])
             with col2:
                 if st.button("🚀 Lancer l'optimisation", type="primary", use_container_width=True):
@@ -217,11 +216,10 @@ def show_responsable():
                     fig_map = px.scatter_mapbox(
                         df, lat='latitude', lon='longitude',
                         zoom=10, height=400,
-                        color_discrete_sequence=['#667eea']
+                        color_discrete_sequence=['#2e7d32']
                     )
                     fig_map.update_layout(mapbox_style="open-street-map")
                     st.plotly_chart(fig_map, use_container_width=True)
-
             if 'optimization_results' in st.session_state:
                 res = st.session_state['optimization_results']
                 c1, c2, c3, c4 = st.columns(4)
@@ -237,11 +235,10 @@ def show_responsable():
         chauffeurs = pd.DataFrame({
             'Nom': ['Ahmed', 'Mohamed', 'Karim'],
             'Statut': ['🟢 En route', '🟡 En attente', '🟢 En route'],
-            'Livraisons aujourd\'hui': [3, 1, 4],
+            "Livraisons aujourd'hui": [3, 1, 4],
             'Taux ponctualité': ['95%', '88%', '92%']
         })
         st.dataframe(chauffeurs, use_container_width=True)
-
         st.markdown("### Assigner une tournée")
         col1, col2 = st.columns(2)
         with col1:
@@ -262,8 +259,12 @@ def show_responsable():
                 st.success("✅ Prédiction générée !")
         with col2:
             if 'predictions' in st.session_state:
-                fig = px.line(st.session_state['predictions'], x='date', y='commandes_prevues',
-                            color_discrete_sequence=['#764ba2'])
+                fig = px.line(
+                    st.session_state['predictions'],
+                    x='date',
+                    y='commandes_prevues',
+                    color_discrete_sequence=['#2e7d32']
+                )
                 fig.update_traces(fill='tozeroy')
                 st.plotly_chart(fig, use_container_width=True)
 
@@ -274,19 +275,23 @@ def show_responsable():
         c2.metric("🌿 CO₂ économisé", "2.4 tonnes", "+8%")
         c3.metric("💰 Coût optimisé", "-18%", "-18%")
         c4.metric("📦 Chauffeurs actifs", "3/3")
-
         col1, col2 = st.columns(2)
         with col1:
-            fig_pie = px.pie(values=[73, 27], names=["Chargé", "À vide"],
-                           color_discrete_sequence=['#667eea', '#e0e0e0'])
+            fig_pie = px.pie(
+                values=[73, 27],
+                names=["Chargé", "À vide"],
+                color_discrete_sequence=['#2e7d32', '#e0e0e0']
+            )
             st.plotly_chart(fig_pie, use_container_width=True)
         with col2:
-            fig_bar = px.bar(x=['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-                           y=[1200, 1800, 1500, 2100, 1900, 2400],
-                           color_discrete_sequence=['#764ba2'])
+            fig_bar = px.bar(
+                x=['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+                y=[1200, 1800, 1500, 2100, 1900, 2400],
+                color_discrete_sequence=['#2e7d32']
+            )
             st.plotly_chart(fig_bar, use_container_width=True)
 
-# ─── ROUTAGE PRINCIPAL ────────────────────────────────────────────────────────
+
 if not st.session_state.logged_in:
     show_login()
 else:
