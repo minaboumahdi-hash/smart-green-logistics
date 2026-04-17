@@ -87,15 +87,12 @@ if 'user' not in st.session_state:
 
 # ─── PAGE LOGIN ───────────────────────────────────────────────────────────────
 def show_login():
+    st.markdown('<div class="title-bar"><h1>🚚 Smart Green Logistics</h1></div>', unsafe_allow_html=True)
+    
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=80)
-        st.title("Smart Green Logistics 🚚")
-        st.markdown("---")
+        st.image("assets/logo-removebg-preview.png", width=150)
         st.subheader("🔐 Connexion")
-        st.markdown('<div class="title-bar"><h1>🚚 Smart Green Logistics</h1></div>', unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([1, 2, 1])
 
     with st.form("login_form"):
         user_id = st.text_input("👤 ID Utilisateur", placeholder="Ex: 1")
@@ -114,13 +111,12 @@ def show_login():
 
         st.markdown("---")
         st.caption("💡 Contactez votre responsable pour obtenir vos identifiants")
-
 # ─── INTERFACE CHAUFFEUR ──────────────────────────────────────────────────────
 def show_chauffeur():
     user = st.session_state.user
 
     with st.sidebar:
-        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=60)
+        st.image("assets/logo-removebg-preview.png", width=150)
         st.markdown(f"### 👋 Bonjour, {user['nom']}")
         st.markdown(f"**Rôle :** 🚛 Chauffeur")
         st.markdown("---")
@@ -190,7 +186,7 @@ def show_responsable():
     user = st.session_state.user
 
     with st.sidebar:
-        st.image("https://img.icons8.com/color/96/delivery-truck.png", width=60)
+        st.image("assets/logo-removebg-preview.png", width=150)
         st.markdown(f"### 👋 Bonjour, {user['nom']}")
         st.markdown(f"**Rôle :** 📊 Responsable Logistique")
         st.markdown("---")
