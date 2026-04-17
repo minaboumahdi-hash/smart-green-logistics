@@ -64,7 +64,6 @@ def show_login():
         logo_left, logo_mid, logo_right = st.columns([1, 2, 1])
         with logo_mid:
             st.image("assets/logo-removebg-preview.png", width=200)
-        st.image("assets/logo-removebg-preview.png", width=200)
         st.markdown("---")
         st.subheader("🔐 Connexion")
         with st.form("login_form"):
