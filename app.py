@@ -37,7 +37,7 @@ st.set_page_config(
 st.markdown("""
 <style>
     .stTextInput input { border-radius: 8px; }
-    .stButton button {
+    .stFormSubmitButton button {
         width: 100%;
         border-radius: 8px;
         background-color: #2e7d32 !important;
@@ -45,8 +45,9 @@ st.markdown("""
         font-weight: bold;
         border: none !important;
     }
-    .stButton button:hover {
+    .stFormSubmitButton button:hover {
         background-color: #1b5e20 !important;
+        color: white !important;
     }
 </style>
 """, unsafe_allow_html=True)
