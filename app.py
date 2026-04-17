@@ -35,21 +35,46 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    /* Palette verte */
+    :root {
+        --green-primary: #2e7d32;
+        --green-hover: #1b5e20;
+    }
+
     .login-box {
         max-width: 400px;
         margin: auto;
         padding: 2rem;
         border-radius: 15px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Dégradé vert au lieu du violet */
+        background: linear-gradient(135deg, var(--green-primary) 0%, #1b5e20 100%);
         color: white;
     }
+    
     .stTextInput input { border-radius: 8px; }
+    
+    /* Bouton vert */
     .stButton button {
         width: 100%;
         border-radius: 8px;
-        background: #667eea;
-        color: white;
+        background-color: var(--green-primary) !important;
+        color: white !important;
         font-weight: bold;
+        border: none !important;
+    }
+    
+    .stButton button:hover {
+        background-color: var(--green-hover) !important;
+    }
+
+    /* Barre de titre personnalisée */
+    .title-bar {
+        background-color: var(--green-primary);
+        padding: 15px;
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        margin-bottom: 20px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -69,6 +94,8 @@ def show_login():
         st.title("Smart Green Logistics 🚚")
         st.markdown("---")
         st.subheader("🔐 Connexion")
+        st.markdown('<div class="title-bar"><h1>🚚 Smart Green Logistics</h1></div>', unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([1, 2, 1])
 
         with st.form("login_form"):
             user_id = st.text_input("👤 ID Utilisateur", placeholder="Ex: 1")
