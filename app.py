@@ -109,8 +109,8 @@ def show_login():
                 st.session_state.logged_in = True
                 st.session_state.user = match.iloc[0].to_dict()
                 st.rerun()
-                else:
-                    st.error("❌ ID ou mot de passe incorrect")
+            else:
+                st.error("❌ ID ou mot de passe incorrect")
 
         st.markdown("---")
         st.caption("💡 Contactez votre responsable pour obtenir vos identifiants")
