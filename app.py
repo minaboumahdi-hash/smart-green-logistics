@@ -61,6 +61,9 @@ def show_login():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
+        logo_left, logo_mid, logo_right = st.columns([1, 2, 1])
+        with logo_mid:
+            st.image("assets/logo-removebg-preview.png", width=200)
         st.image("assets/logo-removebg-preview.png", width=200)
         st.markdown("---")
         st.subheader("🔐 Connexion")
