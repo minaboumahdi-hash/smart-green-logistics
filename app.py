@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ml_integration import get_ml, tab_optimisation, tab_prediction, tab_carte_chauffeur
 import streamlit as st
 import pandas as pd
