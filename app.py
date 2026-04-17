@@ -1,34 +1,17 @@
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ml_integration import get_ml, tab_optimisation, tab_prediction, tab_carte_chauffeur
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+from ml_integration import get_ml, tab_optimisation, tab_prediction, tab_carte_chauffeur
 
 
 @st.cache_data
 def load_users():
     return pd.read_csv("data/users.csv", dtype=str)
-
-
-def optimize_routes(df, nb_camions, capacite):
-    total_poids = df['poids_kg'].sum() if 'poids_kg' in df.columns else 0
-    capacite_totale = nb_camions * capacite
-    fill_rate = min((total_poids / capacite_totale) * 100, 100) if capacite_totale > 0 else 0
-    return {
-        "total_distance": 342,
-        "fill_rate": round(fill_rate, 1),
-        "co2_saved": round(fill_rate * 0.8, 1),
-        "empty_trips_avoided": nb_camions - 1
-    }
-
-
-def predict_demand(df, horizon):
-    days = int(horizon.split()[0])
-    dates = pd.date_range(start='today', periods=days)
-    return pd.DataFrame({'date': dates, 'commandes_prevues': np.random.randint(50, 200, days)})
 
 
 st.set_page_config(
@@ -69,7 +52,7 @@ def show_login():
         with logo_mid:
             st.image("assets/logo-removebg-preview.png", width=200)
         st.markdown("---")
-        st.subheader(" Connexion")
+        st.subheader("Connexion")
         with st.form("login_form"):
             user_id = st.text_input("ID Utilisateur", placeholder="Ex: 1")
             password = st.text_input("Mot de passe", type="password", placeholder="Votre mot de passe")
@@ -124,9 +107,10 @@ def show_chauffeur():
 
     with tab2:
         tab_carte_chauffeur([
-        {"depart": "Casablanca", "arrivee": "Rabat"},
-        {"depart": "Rabat", "arrivee": "Salé"},
-    ])
+            {"depart": "Casablanca", "arrivee": "Rabat"},
+            {"depart": "Rabat", "arrivee": "Salé"},
+        ])
+
     with tab3:
         st.subheader("✅ Marquer une livraison comme terminée")
         commande = st.selectbox("Sélectionner la commande", ['CMD001', 'CMD002', 'CMD003'])
@@ -159,11 +143,11 @@ def show_responsable():
         st.markdown("**Rôle :** 📊 Responsable Logistique")
         st.markdown("---")
         st.subheader("📂 Charger les données")
-        uploaded_file = st.file_uploader("Importer CSV de commandes", type=["csv", "xlsx"])
+        uploaded_file = st.file_uploader("Importer fichier de commandes", type=["csv", "xlsx"])
         st.markdown("---")
         st.subheader("⚙️ Paramètres")
         nb_camions = st.slider("Nombre de camions", 1, 10, 3)
-        capacite_camion = st.number_input("Capacité max (kg)", 100, 10000, 1000)
+        capacite_camion = st.number_input("Capacité max (kg)", 100, 30000, 9000)
         st.markdown("---")
         if st.button("Se déconnecter", use_container_width=True):
             st.session_state.logged_in = False
@@ -172,6 +156,18 @@ def show_responsable():
 
     st.title(f"📊 Espace Responsable — {user['nom']}")
     st.markdown("---")
+
+    # Chargement du fichier
+    df = None
+    if uploaded_file is not None:
+        try:
+            if uploaded_file.name.endswith(".csv"):
+                df = pd.read_csv(uploaded_file)
+            else:
+                df = pd.read_excel(uploaded_file)
+            st.sidebar.success(f"✅ {len(df)} commandes chargées")
+        except Exception as e:
+            st.sidebar.error(f"Erreur lors du chargement : {e}")
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "📋 Toutes les tournées",
@@ -183,17 +179,24 @@ def show_responsable():
 
     with tab1:
         st.subheader("📋 Toutes les tournées en cours")
-        tournees_all = pd.DataFrame({
-            'Commande': ['CMD001', 'CMD002', 'CMD003', 'CMD004'],
-            'Chauffeur': ['Ahmed', 'Mohamed', 'Karim', 'Non assigné'],
-            'Client': ['Client A', 'Client B', 'Client C', 'Client D'],
-            'Statut': ['En cours', 'En attente', 'Terminé', 'Non assigné'],
-            'Poids (kg)': [250, 180, 420, 300]
-        })
-        st.dataframe(tournees_all, use_container_width=True)
+        if df is not None:
+            st.dataframe(df.head(50), use_container_width=True)
+        else:
+            tournees_all = pd.DataFrame({
+                'Commande': ['CMD001', 'CMD002', 'CMD003', 'CMD004'],
+                'Chauffeur': ['Ahmed', 'Mohamed', 'Karim', 'Non assigné'],
+                'Client': ['Client A', 'Client B', 'Client C', 'Client D'],
+                'Statut': ['En cours', 'En attente', 'Terminé', 'Non assigné'],
+                'Poids (kg)': [250, 180, 420, 300]
+            })
+            st.dataframe(tournees_all, use_container_width=True)
+            st.info("👆 Chargez un fichier dans la barre latérale pour voir vos données réelles")
 
     with tab2:
-        tab_optimisation(df, nb_camions, capacite_camion)
+        if df is not None:
+            tab_optimisation(df, nb_camions, capacite_camion)
+        else:
+            st.info("👆 Chargez un fichier CSV ou Excel dans la barre latérale pour lancer l'optimisation")
 
     with tab3:
         st.subheader("👥 Gestion des chauffeurs")
@@ -214,15 +217,29 @@ def show_responsable():
             st.success(f"✅ Commande {commande_sel} assignée à {chauffeur_sel} !")
 
     with tab4:
-        tab_prediction(df)
+        if df is not None:
+            tab_prediction(df)
+        else:
+            st.info("👆 Chargez un fichier dans la barre latérale pour générer des prédictions")
 
     with tab5:
         st.subheader("📊 Dashboard KPI")
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Taux remplissage", "73%", "+12%")
-        c2.metric("CO₂ économisé", "2.4 tonnes", "+8%")
-        c3.metric("Coût optimisé", "-18%", "-18%")
-        c4.metric("Chauffeurs actifs", "3/3")
+        # KPIs dynamiques si optimisation déjà lancée
+        if "opt_results" in st.session_state:
+            kpis = st.session_state["opt_results"]["kpis"]
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("🚚 Taux remplissage",  f"{kpis['fill_global']}%")
+            c2.metric("🌿 CO₂ économisé",     f"{int(kpis['co2_economise_kg'])} kg")
+            c3.metric("📦 Commandes",          kpis["nb_commandes"])
+            c4.metric("✅ Trajets vide évités",
+                      kpis["trajets_vide_avant"] - kpis["trajets_vide_apres"])
+        else:
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("🚚 Taux remplissage", "73%",  "+12%")
+            c2.metric("🌿 CO₂ économisé",   "2.4 t", "+8%")
+            c3.metric("💰 Coût optimisé",   "-18%",  "-18%")
+            c4.metric("👷 Chauffeurs actifs", "3/3")
+
         col1, col2 = st.columns(2)
         with col1:
             fig_pie = px.pie(
