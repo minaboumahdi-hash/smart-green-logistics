@@ -97,18 +97,18 @@ def show_login():
         st.markdown('<div class="title-bar"><h1>🚚 Smart Green Logistics</h1></div>', unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
 
-        with st.form("login_form"):
-            user_id = st.text_input("👤 ID Utilisateur", placeholder="Ex: 1")
-            password = st.text_input("🔑 Mot de passe", type="password", placeholder="Votre mot de passe")
-            submit = st.form_submit_button("Se connecter", use_container_width=True)
+    with st.form("login_form"):
+        user_id = st.text_input("👤 ID Utilisateur", placeholder="Ex: 1")
+        password = st.text_input("🔑 Mot de passe", type="password", placeholder="Votre mot de passe")
+        submit = st.form_submit_button("Se connecter", use_container_width=True)
 
-            if submit:
-                users = load_users()
-                match = users[(users['id'] == user_id) & (users['password'] == password)]
-                if not match.empty:
-                    st.session_state.logged_in = True
-                    st.session_state.user = match.iloc[0].to_dict()
-                    st.rerun()
+        if submit:
+            users = load_users()
+            match = users[(users['id'] == user_id) & (users['password'] == password)]
+            if not match.empty:
+                st.session_state.logged_in = True
+                st.session_state.user = match.iloc[0].to_dict()
+                st.rerun()
                 else:
                     st.error("❌ ID ou mot de passe incorrect")
 
