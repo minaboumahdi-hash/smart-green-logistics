@@ -19,7 +19,7 @@ except ImportError:
 # ════════════════════════════════════════════════════════════════════════════
 st.set_page_config(
     page_title="Smart Green Logistics",
-    page_icon="assets/logo-removebg-preview.png",
+    page_icon="🌿",
     layout="wide",
     initial_sidebar_state="expanded"
 )
