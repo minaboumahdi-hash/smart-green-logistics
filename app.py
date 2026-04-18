@@ -65,8 +65,9 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 }
 
 /* ── Hide streamlit chrome ── */
-#MainMenu, footer, header { visibility: hidden; }
-.block-container { padding: 1.5rem 2rem; max-width: 1600px; }
+#MainMenu, footer { visibility: hidden; }
+header { visibility: visible; }
+[data-testid="collapsedControl"] { display: none !important; }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
