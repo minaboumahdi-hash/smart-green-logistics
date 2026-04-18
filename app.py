@@ -66,6 +66,7 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Hide streamlit chrome ── */
 #MainMenu, footer, header { visibility: hidden; }
+header { visibility: visible; }
 .block-container { padding: 1.5rem 2rem; max-width: 1600px; }
 
 /* ── Sidebar ── */
