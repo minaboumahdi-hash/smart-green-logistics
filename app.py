@@ -76,14 +76,12 @@ section[data-testid="stSidebar"] {
 section[data-testid="stSidebar"] > div { padding-top: 0 !important; }
 section[data-testid="stSidebar"] * { color: #ffffff !important; }
 section[data-testid="stSidebar"] .stMarkdown p { color: #c8e6c9 !important; font-size: 0.85rem; }
-
-/* Logo dans sidebar sur fond blanc léger */
-.sidebar-logo-wrap {
+.logo-wrap {
     background: rgba(255,255,255,0.92);
     border-radius: 10px;
-    padding: 0.5rem;
-    margin: 0.8rem 0;
-    display: flex; justify-content: center;
+    padding: 0.5rem 0.8rem;
+    margin: 0.8rem 0 0.5rem 0;
+    text-align: center;
 }
 
 /* ── Inputs ── */
@@ -370,7 +368,7 @@ def init_session():
         'logged_in': False, 'user': None,
         'df_commandes': None, 'opt_results': None,
         'reclamations': [], 'commandes_livrees': {},
-        'predictions': None, 'sidebar_open': True,
+        'predictions': None,
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -624,40 +622,65 @@ def show_login():
 def show_topbar(user):
     role_label = "Responsable Logistique" if user['role'] == 'responsable' else "Chauffeur"
 
-    # Bouton ☰ / ✕ toggle sidebar
-    btn_col, logo_col, title_col, user_col = st.columns([0.4, 0.6, 5, 2])
-    with btn_col:
-        icon = "✕" if st.session_state.sidebar_open else "☰"
-        st.markdown(
-            f'<div style="padding-top:0.3rem;">',
-            unsafe_allow_html=True
-        )
-        if st.button(icon, key="sidebar_toggle"):
-            st.session_state.sidebar_open = not st.session_state.sidebar_open
-            st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Bouton toggle sidebar (☰ quand ouverte, ✕ quand fermée)
+    # Note : Streamlit gère nativement l'ouverture/fermeture de la sidebar
+    # Ce bouton est visuel et indique l'état
+    st.markdown("""
+    <style>
+    .topbar-wrap {
+        display: flex; align-items: center; gap: 1rem;
+        padding: 0.5rem 0 0.8rem 0;
+    }
+    .topbar-title {
+        font-family: Syne; font-size: 1.1rem; font-weight: 800; color: #1b2e1c;
+    }
+    .topbar-badge {
+        background: #e8f5e9; border: 1px solid #52a65a; color: #2e7d32;
+        font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em;
+        padding: 0.2rem 0.6rem; border-radius: 20px; text-transform: uppercase;
+    }
+    .topbar-user {
+        margin-left: auto; font-family: Syne; font-weight: 600;
+        color: #2d5a32; font-size: 0.85rem;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    with logo_col:
+    c_toggle, c_logo, c_info = st.columns([0.35, 0.5, 8])
+
+    with c_toggle:
+        # Bouton ☰ / ✕ — bascule l'état sidebar_open
+        if 'sidebar_open' not in st.session_state:
+            st.session_state.sidebar_open = True
+        icon = "✕" if st.session_state.sidebar_open else "☰"
+        st.markdown(f"""
+        <style>
+        div[data-testid="column"]:nth-child(1) .stButton > button {{
+            background: transparent !important;
+            border: 1px solid rgba(45,90,50,0.2) !important;
+            color: #2d5a32 !important;
+            font-size: 1rem !important;
+            padding: 0.2rem 0.5rem !important;
+            width: auto !important;
+            min-width: 36px;
+        }}
+        </style>
+        """, unsafe_allow_html=True)
+        if st.button(icon, key="sb_toggle"):
+            st.session_state.sidebar_open = not st.session_state.sidebar_open
+
+    with c_logo:
         try:
             st.image("assets/logo-removebg-preview.png", width=48)
         except Exception:
-            st.markdown("**SGL**")
+            pass
 
-    with title_col:
+    with c_info:
         st.markdown(
-            f'<div style="display:flex;align-items:center;gap:0.8rem;padding:0.35rem 0;">'
-            f'<span style="font-family:Syne;font-size:1.05rem;font-weight:800;color:#1b2e1c;">Smart Green Logistics</span>'
-            f'<span style="background:#e8f5e9;border:1px solid #52a65a;color:#2e7d32;'
-            f'font-size:0.66rem;font-weight:700;letter-spacing:0.1em;padding:0.2rem 0.6rem;'
-            f'border-radius:20px;text-transform:uppercase;">{role_label}</span>'
-            f'</div>',
-            unsafe_allow_html=True
-        )
-
-    with user_col:
-        st.markdown(
-            f'<div style="text-align:right;padding:0.35rem 0;">'
-            f'<span style="font-family:Syne;font-weight:600;color:#2d5a32;font-size:0.85rem;">{user["nom"]}</span>'
+            f'<div class="topbar-wrap">'
+            f'<span class="topbar-title">Smart Green Logistics</span>'
+            f'<span class="topbar-badge">{role_label}</span>'
+            f'<span class="topbar-user">{user["nom"]}</span>'
             f'</div>',
             unsafe_allow_html=True
         )
@@ -671,15 +694,15 @@ def show_chauffeur():
     user = st.session_state.user
 
     with st.sidebar:
-        st.markdown('<div class="sidebar-logo-wrap">', unsafe_allow_html=True)
+        st.markdown('<div class="logo-wrap">', unsafe_allow_html=True)
         try:
             st.image("assets/logo-removebg-preview.png", width=120)
         except Exception:
-            st.markdown('<span style="font-family:Syne;font-weight:800;color:#1b5e20;font-size:1rem;">SGL</span>', unsafe_allow_html=True)
+            st.markdown('<b style="color:#1b5e20;">Smart Green Logistics</b>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.2rem;">{user["nom"]}</p>'
             f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 1rem;">Chauffeur</p>',
             unsafe_allow_html=True
         )
@@ -877,15 +900,15 @@ def show_responsable():
     user = st.session_state.user
 
     with st.sidebar:
-        st.markdown('<div class="sidebar-logo-wrap">', unsafe_allow_html=True)
+        st.markdown('<div class="logo-wrap">', unsafe_allow_html=True)
         try:
             st.image("assets/logo-removebg-preview.png", width=120)
         except Exception:
-            st.markdown('<span style="font-family:Syne;font-weight:800;color:#1b5e20;font-size:1rem;">SGL</span>', unsafe_allow_html=True)
+            st.markdown('<b style="color:#1b5e20;">Smart Green Logistics</b>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.2rem;">{user["nom"]}</p>'
             f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 0.8rem;">Responsable Logistique</p>',
             unsafe_allow_html=True
         )
