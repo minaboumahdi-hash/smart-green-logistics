@@ -70,19 +70,12 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #2e7d32 0%, #388e3c 50%, #43a047 100%) !important;
-    border-right: 1px solid rgba(255,255,255,0.15);
+    background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.1);
 }
 section[data-testid="stSidebar"] > div { padding-top: 0 !important; }
 section[data-testid="stSidebar"] * { color: #ffffff !important; }
 section[data-testid="stSidebar"] .stMarkdown p { color: #c8e6c9 !important; font-size: 0.85rem; }
-.logo-wrap {
-    background: rgba(255,255,255,0.92);
-    border-radius: 10px;
-    padding: 0.5rem 0.8rem;
-    margin: 0.8rem 0 0.5rem 0;
-    text-align: center;
-}
 
 /* ── Inputs ── */
 .stTextInput input, .stNumberInput input, .stSelectbox select,
@@ -621,71 +614,31 @@ def show_login():
 # ════════════════════════════════════════════════════════════════════════════
 def show_topbar(user):
     role_label = "Responsable Logistique" if user['role'] == 'responsable' else "Chauffeur"
+    try:
+        c1, c2, c3 = st.columns([1, 6, 2])
+        with c1:
+            st.image("assets/logo-removebg-preview.png", width=60)
+        with c2:
+            st.markdown(
+                f'<div style="display:flex;align-items:center;gap:1rem;padding:0.3rem 0;">'
+                f'<span style="font-family:Syne;font-size:1.1rem;font-weight:800;color:#1b2e1c;">Smart Green Logistics</span>'
+                f'<span style="background:rgba(45,90,50,0.6);border:1px solid rgba(109,201,119,0.3);color:#2e7d32;'
+                f'font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.2rem 0.6rem;border-radius:20px;text-transform:uppercase;">'
+                f'{role_label}</span>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+        with c3:
+            st.markdown(
+                f'<div style="text-align:right;padding:0.3rem 0;">'
+                f'<span style="font-family:Syne;font-weight:600;color:#2d5a32;font-size:0.85rem;">{user["nom"]}</span>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+    except Exception:
+        st.markdown(f'**Smart Green Logistics** — {user["nom"]}')
 
-    # Bouton toggle sidebar (☰ quand ouverte, ✕ quand fermée)
-    # Note : Streamlit gère nativement l'ouverture/fermeture de la sidebar
-    # Ce bouton est visuel et indique l'état
-    st.markdown("""
-    <style>
-    .topbar-wrap {
-        display: flex; align-items: center; gap: 1rem;
-        padding: 0.5rem 0 0.8rem 0;
-    }
-    .topbar-title {
-        font-family: Syne; font-size: 1.1rem; font-weight: 800; color: #1b2e1c;
-    }
-    .topbar-badge {
-        background: #e8f5e9; border: 1px solid #52a65a; color: #2e7d32;
-        font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em;
-        padding: 0.2rem 0.6rem; border-radius: 20px; text-transform: uppercase;
-    }
-    .topbar-user {
-        margin-left: auto; font-family: Syne; font-weight: 600;
-        color: #2d5a32; font-size: 0.85rem;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    c_toggle, c_logo, c_info = st.columns([0.35, 0.5, 8])
-
-    with c_toggle:
-        # Bouton ☰ / ✕ — bascule l'état sidebar_open
-        if 'sidebar_open' not in st.session_state:
-            st.session_state.sidebar_open = True
-        icon = "✕" if st.session_state.sidebar_open else "☰"
-        st.markdown(f"""
-        <style>
-        div[data-testid="column"]:nth-child(1) .stButton > button {{
-            background: transparent !important;
-            border: 1px solid rgba(45,90,50,0.2) !important;
-            color: #2d5a32 !important;
-            font-size: 1rem !important;
-            padding: 0.2rem 0.5rem !important;
-            width: auto !important;
-            min-width: 36px;
-        }}
-        </style>
-        """, unsafe_allow_html=True)
-        if st.button(icon, key="sb_toggle"):
-            st.session_state.sidebar_open = not st.session_state.sidebar_open
-
-    with c_logo:
-        try:
-            st.image("assets/logo-removebg-preview.png", width=48)
-        except Exception:
-            pass
-
-    with c_info:
-        st.markdown(
-            f'<div class="topbar-wrap">'
-            f'<span class="topbar-title">Smart Green Logistics</span>'
-            f'<span class="topbar-badge">{role_label}</span>'
-            f'<span class="topbar-user">{user["nom"]}</span>'
-            f'</div>',
-            unsafe_allow_html=True
-        )
-
-    st.markdown('<hr style="border-color:rgba(45,90,50,0.15);margin:0 0 1rem 0;">', unsafe_allow_html=True)
+    st.markdown('<hr style="border-color:rgba(109,201,119,0.15);margin:0 0 1rem 0;">', unsafe_allow_html=True)
 
 # ════════════════════════════════════════════════════════════════════════════
 # INTERFACE CHAUFFEUR
@@ -694,19 +647,17 @@ def show_chauffeur():
     user = st.session_state.user
 
     with st.sidebar:
-        st.markdown('<div class="logo-wrap">', unsafe_allow_html=True)
         try:
-            st.image("assets/logo-removebg-preview.png", width=120)
+            st.image("assets/logo-removebg-preview.png", width=130)
         except Exception:
-            st.markdown('<b style="color:#1b5e20;">Smart Green Logistics</b>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("**Smart Green Logistics**")
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.2rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 1rem;">Chauffeur</p>',
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#1b2e1c;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
+            f'<p style="font-size:0.75rem;color:#2e7d32;margin:0 0 1rem;">Chauffeur</p>',
             unsafe_allow_html=True
         )
-        st.markdown('<hr style="border-color:rgba(255,255,255,0.2);">', unsafe_allow_html=True)
+        st.markdown('<hr style="border-color:rgba(109,201,119,0.2);">', unsafe_allow_html=True)
 
         nb_reclamations = len([r for r in st.session_state.reclamations
                                 if r.get('chauffeur') == user['nom'] and not r.get('traitee')])
@@ -900,19 +851,17 @@ def show_responsable():
     user = st.session_state.user
 
     with st.sidebar:
-        st.markdown('<div class="logo-wrap">', unsafe_allow_html=True)
         try:
-            st.image("assets/logo-removebg-preview.png", width=120)
+            st.image("assets/logo-removebg-preview.png", width=130)
         except Exception:
-            st.markdown('<b style="color:#1b5e20;">Smart Green Logistics</b>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("**Smart Green Logistics**")
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.2rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 0.8rem;">Responsable Logistique</p>',
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#1b2e1c;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
+            f'<p style="font-size:0.75rem;color:#2e7d32;margin:0 0 0.8rem;">Responsable Logistique</p>',
             unsafe_allow_html=True
         )
-        st.markdown('<hr style="border-color:rgba(255,255,255,0.2);">', unsafe_allow_html=True)
+        st.markdown('<hr style="border-color:rgba(109,201,119,0.2);">', unsafe_allow_html=True)
 
         st.markdown('<div class="sidebar-section">Parametres</div>', unsafe_allow_html=True)
         uploaded_file   = st.file_uploader("Charger CSV commandes", type=["csv","xlsx"])
