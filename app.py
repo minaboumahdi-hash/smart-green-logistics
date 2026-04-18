@@ -19,7 +19,7 @@ except ImportError:
 # ════════════════════════════════════════════════════════════════════════════
 st.set_page_config(
     page_title="Smart Green Logistics",
-    page_icon="🌿",
+    page_icon="assets/logo-removebg-preview.png",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -66,23 +66,22 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Hide streamlit chrome ── */
 #MainMenu, footer, header { visibility: hidden; }
-header { visibility: visible; }
 .block-container { padding: 1.5rem 2rem; max-width: 1600px; }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #2e7d32 0%, #388e3c 50%, #43a047 100%) !important;
+    background: linear-gradient(180deg, #43a047 0%, #4caf50 50%, #66bb6a 100%) !important;
     border-right: 1px solid rgba(255,255,255,0.15);
 }
-section[data-testid="stSidebar"] > div { padding-top: 0 !important; }
+section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
 section[data-testid="stSidebar"] * { color: #ffffff !important; }
-section[data-testid="stSidebar"] .stMarkdown p { color: #c8e6c9 !important; font-size: 0.85rem; }
+section[data-testid="stSidebar"] .stMarkdown p { color: #e8f5e9 !important; font-size: 0.85rem; }
 .logo-box {
-    background: rgba(255,255,255,0.92);
-    border-radius: 10px;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem 0;
+    margin-bottom: 0.3rem;
 }
 
 /* ── Inputs ── */
@@ -655,19 +654,17 @@ def show_chauffeur():
     user = st.session_state.user
 
     with st.sidebar:
-        st.markdown('<div class="logo-box">', unsafe_allow_html=True)
         try:
-            st.image("assets/logo-removebg-preview.png", width=120)
+            st.image("assets/logo-removebg-preview.png", width=140)
         except Exception:
-            st.markdown('<b>Smart Green Logistics</b>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('<b style="color:#ffffff;">Smart Green Logistics</b>', unsafe_allow_html=True)
 
         st.markdown(
             f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.1rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 0.8rem;">Chauffeur</p>',
+            f'<p style="font-size:0.75rem;color:#e8f5e9;margin:0 0 0.8rem;">Chauffeur</p>',
             unsafe_allow_html=True
         )
-        st.markdown('<hr style="border-color:rgba(255,255,255,0.2);">', unsafe_allow_html=True)
+        st.markdown('<hr style="border-color:rgba(255,255,255,0.3);">', unsafe_allow_html=True)
 
         nb_reclamations = len([r for r in st.session_state.reclamations
                                 if r.get('chauffeur') == user['nom'] and not r.get('traitee')])
@@ -861,19 +858,17 @@ def show_responsable():
     user = st.session_state.user
 
     with st.sidebar:
-        st.markdown('<div class="logo-box">', unsafe_allow_html=True)
         try:
-            st.image("assets/logo-removebg-preview.png", width=120)
+            st.image("assets/logo-removebg-preview.png", width=140)
         except Exception:
-            st.markdown('<b>Smart Green Logistics</b>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('<b style="color:#ffffff;">Smart Green Logistics</b>', unsafe_allow_html=True)
 
         st.markdown(
             f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.1rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 0.8rem;">Responsable Logistique</p>',
+            f'<p style="font-size:0.75rem;color:#e8f5e9;margin:0 0 0.8rem;">Responsable Logistique</p>',
             unsafe_allow_html=True
         )
-        st.markdown('<hr style="border-color:rgba(255,255,255,0.2);">', unsafe_allow_html=True)
+        st.markdown('<hr style="border-color:rgba(255,255,255,0.3);">', unsafe_allow_html=True)
 
         st.markdown('<div class="sidebar-section">Parametres</div>', unsafe_allow_html=True)
         uploaded_file   = st.file_uploader("Charger CSV commandes", type=["csv","xlsx"])
