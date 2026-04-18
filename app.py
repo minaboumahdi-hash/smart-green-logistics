@@ -71,12 +71,12 @@ header { visibility: visible; }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #43a047 0%, #4caf50 50%, #66bb6a 100%) !important;
+    background: linear-gradient(180deg, #e8f5e9 0%, #f1f8f1 50%, #ffffff 100%) !important;
     border-right: 1px solid rgba(255,255,255,0.15);
 }
 section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
-section[data-testid="stSidebar"] * { color: #ffffff !important; }
-section[data-testid="stSidebar"] .stMarkdown p { color: #e8f5e9 !important; font-size: 0.85rem; }
+section[data-testid="stSidebar"] * { color: #1b5e20 !important; }
+section[data-testid="stSidebar"] .stMarkdown p { color: #2e7d32 !important; font-size: 0.85rem; }
 .logo-box {
     display: flex;
     justify-content: center;
