@@ -14,12 +14,19 @@ try:
 except ImportError:
     ML_AVAILABLE = False
 
+
+# ── Chemin absolu du logo (fix Streamlit Cloud) ─────────────────────────────
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo-removebg-preview.png")
+if not os.path.exists(LOGO_PATH):
+    LOGO_PATH = LOGO_PATH
+
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
 # ════════════════════════════════════════════════════════════════════════════
 st.set_page_config(
     page_title="Smart Green Logistics",
-    page_icon="assets/logo-removebg-preview.png",
+    page_icon=LOGO_PATH,
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -56,6 +63,20 @@ CSS = """
 }
 
 * { font-family: var(--font-body); }
+
+/* ── FIX DEPLOIEMENT : header non cache + sidebar toujours ouvrable ── */
+.block-container { margin-top: 60px !important; padding-top: 1rem !important; }
+header[data-testid="stHeader"] { background: transparent !important; z-index: 1 !important; }
+[data-testid="stSidebarCollapsedControl"] {
+    visibility: visible !important;
+    display: flex !important;
+    opacity: 1 !important;
+    z-index: 999999 !important;
+}
+[data-testid="stSidebarCollapsedControl"] svg { color: #2d5a32 !important; fill: #2d5a32 !important; }
+/* eviter que des elements absolus cachent le header personnalise */
+.main-header { margin-top: 60px !important; position: relative !important; z-index: 10 !important; }
+
 h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Global background ── */
@@ -581,7 +602,7 @@ def show_login():
         try:
             lc, lm, lr = st.columns([1, 3, 1])
             with lm:
-                st.image("assets/logo-removebg-preview.png", width=180)
+                st.image(LOGO_PATH, width=180)
         except Exception:
             st.markdown(
                 '<p style="font-family:Syne;font-size:1.6rem;font-weight:800;'
@@ -627,7 +648,7 @@ def show_topbar(user):
     try:
         c1, c2, c3 = st.columns([1, 6, 2])
         with c1:
-            st.image("assets/logo-removebg-preview.png", width=60)
+            st.image(LOGO_PATH, width=60)
         with c2:
             st.markdown(
                 f'<div style="display:flex;align-items:center;gap:1rem;padding:0.3rem 0;">'
@@ -658,7 +679,7 @@ def show_chauffeur():
 
     with st.sidebar:
         try:
-            st.image("assets/logo-removebg-preview.png", width=140)
+            st.image(LOGO_PATH, width=140)
         except Exception:
             st.markdown('<b style="color:#ffffff;">Smart Green Logistics</b>', unsafe_allow_html=True)
 
@@ -862,7 +883,7 @@ def show_responsable():
 
     with st.sidebar:
         try:
-            st.image("assets/logo-removebg-preview.png", width=140)
+            st.image(LOGO_PATH, width=140)
         except Exception:
             st.markdown('<b style="color:#ffffff;">Smart Green Logistics</b>', unsafe_allow_html=True)
 
@@ -1445,3 +1466,4 @@ else:
         show_responsable()
     else:
         st.error("Role non reconnu.")
+
