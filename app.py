@@ -80,20 +80,31 @@ header { background: transparent !important; }
     z-index: 999999 !important;
 }
 
-/* Bouton qui apparait QUAND la sidebar est FERMEE (fleche >> pour ouvrir) */
-[data-testid="stSidebarCollapsedControl"] {
+/* Bouton qui apparait QUAND la sidebar est FERMEE (fleche >> pour ouvrir)
+   Force en position fixe en haut a gauche extreme de la fenetre. */
+[data-testid="stSidebarCollapsedControl"],
+div[data-testid="stSidebarCollapsedControl"],
+header [data-testid="stSidebarCollapsedControl"],
+section[data-testid="stSidebar"] [data-testid="stSidebarCollapsedControl"] {
     visibility: visible !important;
     display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     opacity: 1 !important;
-    z-index: 999999 !important;
+    z-index: 2147483647 !important;
     position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
+    top: 8px !important;
+    left: 8px !important;
+    right: auto !important;
+    bottom: auto !important;
     margin: 0 !important;
-    padding: 0.4rem !important;
+    padding: 6px !important;
+    width: 36px !important;
+    height: 36px !important;
     background: #2d5a32 !important;
-    border-bottom-right-radius: 8px !important;
-    border-top-left-radius: 0 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+    transform: none !important;
 }
 [data-testid="stSidebarCollapsedControl"] button,
 [data-testid="stSidebarCollapsedControl"] button *,
@@ -104,8 +115,15 @@ header { background: transparent !important; }
     stroke: #ffffff !important;
     background: transparent !important;
 }
+[data-testid="stSidebarCollapsedControl"] button {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
 [data-testid="stSidebarCollapsedControl"] button:hover {
-    background: #3d7a44 !important;
+    background: rgba(255,255,255,0.15) !important;
 }
 
 /* MASQUER le bouton "ouvrir" quand la sidebar est DEJA ouverte
