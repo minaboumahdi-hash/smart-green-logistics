@@ -64,42 +64,52 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
     color: #1b2e1c;
 }
 
-/* ── Hide streamlit chrome (MAIS garder le bouton sidebar du header) ── */
+/* ── Hide streamlit chrome ── */
+/* Cacher menu et footer SANS toucher au header (qui contient le bouton sidebar) */
 #MainMenu { visibility: hidden; }
 footer { visibility: hidden; }
 header { background: transparent !important; }
-header [data-testid="stToolbar"] { visibility: hidden; }
 
-/* ✅ FIX SIDEBAR : forcer le bouton de réouverture à rester visible */
+/* FORCER la visibilite du bouton de controle de la sidebar */
 [data-testid="stSidebarCollapsedControl"],
-[data-testid="collapsedControl"] {
+[data-testid="stSidebarCollapseButton"],
+button[kind="header"] {
     visibility: visible !important;
-    display: block !important;
+    display: flex !important;
     opacity: 1 !important;
     z-index: 999999 !important;
     position: fixed !important;
-    top: 0.75rem !important;
-    left: 0.75rem !important;
+    top: 0.5rem !important;
+    left: 0.5rem !important;
 }
-[data-testid="stSidebarCollapsedControl"] button,
-[data-testid="collapsedControl"] button {
-    color: #ffffff !important;
-    background: linear-gradient(135deg, #2d5a32, #3d7a44) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(45,90,50,0.35) !important;
-    padding: 0.4rem !important;
-}
-[data-testid="stSidebarCollapsedControl"] svg,
-[data-testid="collapsedControl"] svg { color: #ffffff !important; fill: #ffffff !important; }
 
+/* FORCER la sidebar a etre visible */
+section[data-testid="stSidebar"] {
+    display: block !important;
+    visibility: visible !important;
+    transform: translateX(0) !important;
+    min-width: 280px !important;
+    max-width: 280px !important;
+    width: 280px !important;
+    margin-left: 0 !important;
+}
+
+section[data-testid="stSidebar"] > div {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Empecher Streamlit de la replier */
+section[data-testid="stSidebar"][aria-expanded="false"] {
+    transform: translateX(0) !important;
+    margin-left: 0 !important;
+}
 .block-container { padding: 1.5rem 2rem; max-width: 1600px; }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #43a047 0%, #4caf50 50%, #66bb6a 100%) !important;
     border-right: 1px solid rgba(255,255,255,0.15);
-    min-width: 280px !important;
-    width: 280px !important;
 }
 section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
 section[data-testid="stSidebar"] * { color: #ffffff !important; }
@@ -1331,3 +1341,4 @@ else:
         show_responsable()
     else:
         st.error("Role non reconnu.")
+
