@@ -32,24 +32,24 @@ CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
 :root {
-    --g0: #0a0f0a;
-    --g1: #0d1a0f;
-    --g2: #1a2e1c;
+    --g0: #f0faf1;
+    --g1: #e8f5e9;
+    --g2: #c8e6c9;
     --g3: #2d5a32;
     --g4: #3d7a44;
     --g5: #52a65a;
-    --g6: #6dc977;
-    --g7: #a8e6b0;
+    --g6: #2e7d32;
+    --g7: #1b5e20;
     --g8: #d4f5d8;
-    --g9: #f0faf1;
-    --accent: #7fff6e;
-    --accent2: #00e5c0;
-    --warn: #f5a623;
-    --danger: #e84040;
-    --white: #f8fdf8;
-    --card: rgba(26,46,28,0.85);
-    --border: rgba(109,201,119,0.2);
-    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+    --g9: #f9fffe;
+    --accent: #2d5a32;
+    --accent2: #00897b;
+    --warn: #e65100;
+    --danger: #c62828;
+    --white: #ffffff;
+    --card: #ffffff;
+    --border: rgba(45,90,50,0.15);
+    --shadow: 0 4px 20px rgba(45,90,50,0.1);
     --radius: 12px;
     --font-head: 'Syne', sans-serif;
     --font-body: 'DM Sans', sans-serif;
@@ -60,8 +60,8 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Global background ── */
 .stApp {
-    background: linear-gradient(135deg, #0a0f0a 0%, #0d1a0f 40%, #0f1f12 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, #f9fffe 0%, #f0faf1 50%, #e8f5e9 100%);
+    color: #1b2e1c;
 }
 
 /* ── Hide streamlit chrome ── */
@@ -70,39 +70,39 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #080e09 0%, #0d1a0f 50%, #111f13 100%) !important;
-    border-right: 1px solid var(--border);
+    background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.1);
 }
 section[data-testid="stSidebar"] > div { padding-top: 0 !important; }
-section[data-testid="stSidebar"] * { color: var(--white) !important; }
-section[data-testid="stSidebar"] .stMarkdown p { color: var(--g7) !important; font-size: 0.85rem; }
+section[data-testid="stSidebar"] * { color: #ffffff !important; }
+section[data-testid="stSidebar"] .stMarkdown p { color: #c8e6c9 !important; font-size: 0.85rem; }
 
 /* ── Inputs ── */
 .stTextInput input, .stNumberInput input, .stSelectbox select,
 .stTextArea textarea {
-    background: rgba(255,255,255,0.04) !important;
-    border: 1px solid var(--border) !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(45,90,50,0.25) !important;
     border-radius: 8px !important;
-    color: var(--white) !important;
+    color: #1b2e1c !important;
     font-family: var(--font-body) !important;
 }
 .stTextInput input:focus, .stNumberInput input:focus {
-    border-color: var(--accent) !important;
-    box-shadow: 0 0 0 2px rgba(127,255,110,0.15) !important;
+    border-color: #2d5a32 !important;
+    box-shadow: 0 0 0 2px rgba(45,90,50,0.12) !important;
 }
 .stSelectbox > div > div {
-    background: rgba(255,255,255,0.04) !important;
-    border: 1px solid var(--border) !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(45,90,50,0.25) !important;
     border-radius: 8px !important;
-    color: var(--white) !important;
+    color: #1b2e1c !important;
 }
-label { color: var(--g7) !important; font-size: 0.82rem !important; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+label { color: #2d5a32 !important; font-size: 0.82rem !important; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
 
 /* ── Buttons ── */
 .stButton > button, .stFormSubmitButton > button {
-    background: linear-gradient(135deg, var(--g3), var(--g4)) !important;
-    color: var(--white) !important;
-    border: 1px solid var(--g5) !important;
+    background: linear-gradient(135deg, #2d5a32, #3d7a44) !important;
+    color: #ffffff !important;
+    border: 1px solid #52a65a !important;
     border-radius: 8px !important;
     font-family: var(--font-head) !important;
     font-weight: 600 !important;
@@ -113,35 +113,34 @@ label { color: var(--g7) !important; font-size: 0.82rem !important; font-weight:
     width: 100%;
 }
 .stButton > button:hover, .stFormSubmitButton > button:hover {
-    background: linear-gradient(135deg, var(--g4), var(--g5)) !important;
-    border-color: var(--accent) !important;
-    box-shadow: 0 0 20px rgba(127,255,110,0.25) !important;
+    background: linear-gradient(135deg, #3d7a44, #52a65a) !important;
+    box-shadow: 0 4px 16px rgba(45,90,50,0.3) !important;
     transform: translateY(-1px) !important;
 }
 
 /* ── Metrics ── */
 [data-testid="stMetric"] {
-    background: var(--card) !important;
-    border: 1px solid var(--border) !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(45,90,50,0.15) !important;
     border-radius: var(--radius) !important;
     padding: 1rem 1.2rem !important;
-    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(45,90,50,0.08) !important;
 }
-[data-testid="stMetricLabel"] { color: var(--g7) !important; font-size: 0.75rem !important; text-transform: uppercase; letter-spacing: 0.06em; }
-[data-testid="stMetricValue"] { color: var(--accent) !important; font-family: var(--font-head) !important; font-size: 1.8rem !important; font-weight: 700; }
+[data-testid="stMetricLabel"] { color: #52a65a !important; font-size: 0.75rem !important; text-transform: uppercase; letter-spacing: 0.06em; }
+[data-testid="stMetricValue"] { color: #1b5e20 !important; font-family: var(--font-head) !important; font-size: 1.8rem !important; font-weight: 700; }
 [data-testid="stMetricDelta"] { font-size: 0.8rem !important; }
 
 /* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {
-    background: rgba(255,255,255,0.03) !important;
+    background: #e8f5e9 !important;
     border-radius: var(--radius) !important;
     padding: 4px !important;
-    border: 1px solid var(--border) !important;
+    border: 1px solid rgba(45,90,50,0.15) !important;
     gap: 4px !important;
 }
 .stTabs [data-baseweb="tab"] {
     background: transparent !important;
-    color: var(--g7) !important;
+    color: #2d5a32 !important;
     border-radius: 8px !important;
     font-family: var(--font-head) !important;
     font-size: 0.82rem !important;
@@ -151,29 +150,29 @@ label { color: var(--g7) !important; font-size: 0.82rem !important; font-weight:
     border: none !important;
 }
 .stTabs [aria-selected="true"] {
-    background: linear-gradient(135deg, var(--g3), var(--g4)) !important;
-    color: var(--white) !important;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3) !important;
+    background: linear-gradient(135deg, #2d5a32, #3d7a44) !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(45,90,50,0.25) !important;
 }
 
 /* ── Dataframe ── */
-.stDataFrame { border-radius: var(--radius) !important; overflow: hidden; border: 1px solid var(--border) !important; }
+.stDataFrame { border-radius: var(--radius) !important; overflow: hidden; border: 1px solid rgba(45,90,50,0.15) !important; }
 iframe { border-radius: var(--radius) !important; }
 
 /* ── Slider ── */
-.stSlider > div > div > div > div { background: var(--g5) !important; }
-.stSlider > div > div > div > div > div { background: var(--accent) !important; }
+.stSlider > div > div > div > div { background: #52a65a !important; }
+.stSlider > div > div > div > div > div { background: #2d5a32 !important; }
 
 /* ── Alerts ── */
-.stSuccess { background: rgba(109,201,119,0.12) !important; border: 1px solid var(--g5) !important; border-radius: var(--radius) !important; color: var(--g7) !important; }
-.stWarning { background: rgba(245,166,35,0.12) !important; border: 1px solid var(--warn) !important; border-radius: var(--radius) !important; }
-.stError   { background: rgba(232,64,64,0.12)  !important; border: 1px solid var(--danger) !important; border-radius: var(--radius) !important; }
-.stInfo    { background: rgba(26,46,28,0.6)    !important; border: 1px solid var(--border) !important; border-radius: var(--radius) !important; color: var(--g7) !important; }
+.stSuccess { background: #f0faf1 !important; border: 1px solid #52a65a !important; border-radius: var(--radius) !important; color: #1b5e20 !important; }
+.stWarning { background: #fff8f0 !important; border: 1px solid #e65100 !important; border-radius: var(--radius) !important; }
+.stError   { background: #fff5f5 !important; border: 1px solid #c62828 !important; border-radius: var(--radius) !important; }
+.stInfo    { background: #f0faf1 !important; border: 1px solid rgba(45,90,50,0.2) !important; border-radius: var(--radius) !important; color: #2d5a32 !important; }
 
 /* ── File uploader ── */
 [data-testid="stFileUploader"] {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px dashed var(--border) !important;
+    background: #f9fffe !important;
+    border: 1px dashed rgba(45,90,50,0.3) !important;
     border-radius: var(--radius) !important;
     padding: 0.5rem !important;
 }
@@ -182,151 +181,146 @@ iframe { border-radius: var(--radius) !important; }
 .sgl-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 0 1.5rem 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(45,90,50,0.15);
     margin-bottom: 1.5rem;
 }
 .sgl-header h1 {
     font-family: var(--font-head); font-size: 1.6rem; font-weight: 800;
-    color: var(--white); margin: 0;
-    letter-spacing: -0.02em;
+    color: #1b2e1c; margin: 0; letter-spacing: -0.02em;
 }
 .sgl-header .badge {
-    background: linear-gradient(135deg, var(--g3), var(--g4));
-    border: 1px solid var(--g5);
-    color: var(--accent); font-family: var(--font-head);
+    background: linear-gradient(135deg, #2d5a32, #3d7a44);
+    border: 1px solid #52a65a;
+    color: #ffffff; font-family: var(--font-head);
     font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-    padding: 0.3rem 0.8rem; border-radius: 20px;
-    text-transform: uppercase;
+    padding: 0.3rem 0.8rem; border-radius: 20px; text-transform: uppercase;
 }
 
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1rem 0; }
 .kpi-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid rgba(45,90,50,0.15);
     border-radius: var(--radius);
     padding: 1.2rem;
-    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(45,90,50,0.08);
     position: relative; overflow: hidden;
 }
 .kpi-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--g4), var(--accent));
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #2d5a32, #52a65a);
 }
-.kpi-card .kpi-label { font-size: 0.72rem; color: var(--g7); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
-.kpi-card .kpi-value { font-family: var(--font-head); font-size: 1.9rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.kpi-card .kpi-label { font-size: 0.72rem; color: #52a65a; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+.kpi-card .kpi-value { font-family: var(--font-head); font-size: 1.9rem; font-weight: 800; color: #1b5e20; line-height: 1; }
 .kpi-card .kpi-delta { font-size: 0.78rem; margin-top: 0.3rem; }
-.kpi-card .kpi-delta.pos { color: var(--g6); }
-.kpi-card .kpi-delta.neg { color: var(--danger); }
-.kpi-card .kpi-delta.warn { color: var(--warn); }
+.kpi-card .kpi-delta.pos  { color: #2e7d32; }
+.kpi-card .kpi-delta.neg  { color: #c62828; }
+.kpi-card .kpi-delta.warn { color: #e65100; }
 
-.compare-block {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;
-}
+.compare-block { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
 .compare-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid rgba(45,90,50,0.15);
     border-radius: var(--radius);
     padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(45,90,50,0.06);
 }
-.compare-card.before { border-top: 3px solid var(--danger); }
-.compare-card.after  { border-top: 3px solid var(--accent); }
+.compare-card.before { border-top: 3px solid #c62828; }
+.compare-card.after  { border-top: 3px solid #2d5a32; }
 .compare-card h4 { font-family: var(--font-head); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 0.8rem 0; }
-.compare-card.before h4 { color: var(--danger); }
-.compare-card.after  h4 { color: var(--accent); }
-.compare-stat { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; }
-.compare-stat .val { font-family: var(--font-head); font-weight: 700; }
+.compare-card.before h4 { color: #c62828; }
+.compare-card.after  h4 { color: #2d5a32; }
+.compare-stat { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid rgba(45,90,50,0.08); font-size: 0.85rem; color: #2d3e2e; }
+.compare-stat .val { font-family: var(--font-head); font-weight: 700; color: #1b2e1c; }
 
 .section-title {
-    font-family: var(--font-head); font-size: 1rem; font-weight: 700;
-    color: var(--white); letter-spacing: 0.04em; text-transform: uppercase;
+    font-family: var(--font-head); font-size: 0.85rem; font-weight: 700;
+    color: #2d5a32; letter-spacing: 0.08em; text-transform: uppercase;
     margin: 1.5rem 0 0.8rem 0;
     display: flex; align-items: center; gap: 0.5rem;
 }
 .section-title::after {
     content: ''; flex: 1; height: 1px;
-    background: linear-gradient(90deg, var(--border), transparent);
+    background: linear-gradient(90deg, rgba(45,90,50,0.2), transparent);
 }
 
 .route-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid rgba(45,90,50,0.15);
     border-radius: var(--radius);
-    padding: 1rem 1.2rem;
-    margin: 0.5rem 0;
+    padding: 1rem 1.2rem; margin: 0.5rem 0;
     display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(45,90,50,0.06);
 }
-.route-card .route-path { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; }
-.route-card .route-meta { font-size: 0.78rem; color: var(--g7); margin-top: 0.2rem; }
-.route-card .route-co2 { background: rgba(109,201,119,0.15); border: 1px solid var(--g5); color: var(--accent); font-family: var(--font-head); font-size: 0.8rem; font-weight: 700; padding: 0.3rem 0.7rem; border-radius: 20px; }
+.route-card .route-path { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; color: #1b2e1c; }
+.route-card .route-meta { font-size: 0.78rem; color: #52a65a; margin-top: 0.2rem; }
+.route-card .route-co2 { background: #f0faf1; border: 1px solid #52a65a; color: #2d5a32; font-family: var(--font-head); font-size: 0.8rem; font-weight: 700; padding: 0.3rem 0.7rem; border-radius: 20px; }
 
 .status-pill {
     display: inline-block; padding: 0.25rem 0.7rem; border-radius: 20px;
     font-size: 0.72rem; font-weight: 700; font-family: var(--font-head);
     text-transform: uppercase; letter-spacing: 0.06em;
 }
-.status-pill.green  { background: rgba(109,201,119,0.15); color: var(--g6); border: 1px solid var(--g5); }
-.status-pill.yellow { background: rgba(245,166,35,0.15);  color: var(--warn);  border: 1px solid var(--warn); }
-.status-pill.red    { background: rgba(232,64,64,0.15);   color: var(--danger); border: 1px solid var(--danger); }
-.status-pill.grey   { background: rgba(255,255,255,0.06); color: var(--g7); border: 1px solid rgba(255,255,255,0.1); }
+.status-pill.green  { background: #f0faf1; color: #2e7d32; border: 1px solid #52a65a; }
+.status-pill.yellow { background: #fff8f0; color: #e65100; border: 1px solid #e65100; }
+.status-pill.red    { background: #fff5f5; color: #c62828; border: 1px solid #c62828; }
+.status-pill.grey   { background: #f5f5f5; color: #757575; border: 1px solid #bdbdbd; }
 
 .reclamation-card {
-    background: rgba(232,64,64,0.08);
-    border: 1px solid rgba(232,64,64,0.3);
-    border-left: 3px solid var(--danger);
+    background: #fff5f5;
+    border: 1px solid rgba(198,40,40,0.2);
+    border-left: 3px solid #c62828;
     border-radius: var(--radius);
     padding: 1rem 1.2rem; margin: 0.5rem 0;
 }
-.reclamation-card h4 { font-family: var(--font-head); font-size: 0.85rem; color: var(--danger); margin: 0 0 0.3rem 0; }
-.reclamation-card p { font-size: 0.82rem; color: var(--g7); margin: 0; }
+.reclamation-card h4 { font-family: var(--font-head); font-size: 0.85rem; color: #c62828; margin: 0 0 0.3rem 0; }
+.reclamation-card p { font-size: 0.82rem; color: #5d4037; margin: 0; }
 
 .login-container {
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at 30% 50%, rgba(45,90,50,0.3) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 20%, rgba(0,229,192,0.08) 0%, transparent 50%),
-                linear-gradient(135deg, #050a06 0%, #0a0f0a 100%);
+    background: linear-gradient(135deg, #f0faf1 0%, #e8f5e9 50%, #c8e6c9 100%);
 }
 .login-box {
     width: 100%; max-width: 420px;
-    background: rgba(13,26,15,0.9);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid rgba(45,90,50,0.2);
     border-radius: 20px;
     padding: 2.5rem;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(127,255,110,0.05);
+    box-shadow: 0 20px 60px rgba(45,90,50,0.15);
 }
 
 .sidebar-nav-item {
     display: flex; align-items: center; gap: 0.7rem;
     padding: 0.6rem 0.8rem; border-radius: 8px;
     cursor: pointer; transition: all 0.15s;
-    font-size: 0.85rem; color: var(--g7);
+    font-size: 0.85rem; color: #c8e6c9;
     margin: 2px 0;
 }
-.sidebar-nav-item:hover { background: rgba(255,255,255,0.06); color: var(--white); }
-.sidebar-nav-item.active { background: linear-gradient(135deg, var(--g3), var(--g4)); color: var(--white); font-weight: 600; }
+.sidebar-nav-item:hover { background: rgba(255,255,255,0.1); color: #ffffff; }
+.sidebar-nav-item.active { background: rgba(255,255,255,0.15); color: #ffffff; font-weight: 600; }
 
-.sidebar-section { font-size: 0.68rem; color: var(--g5); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.8rem 0.8rem 0.3rem; font-weight: 700; font-family: var(--font-head); }
+.sidebar-section { font-size: 0.68rem; color: #a5d6a7; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.8rem 0.8rem 0.3rem; font-weight: 700; font-family: var(--font-head); }
 
-.divider { border: none; border-top: 1px solid var(--border); margin: 0.8rem 0; }
+.divider { border: none; border-top: 1px solid rgba(45,90,50,0.15); margin: 0.8rem 0; }
 
-.map-container { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.map-container { border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(45,90,50,0.15); }
 
 .groupage-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid rgba(45,90,50,0.15);
     border-radius: var(--radius);
     padding: 1rem 1.2rem; margin: 0.4rem 0;
+    box-shadow: 0 2px 6px rgba(45,90,50,0.06);
 }
-.groupage-card h4 { font-family: var(--font-head); font-size: 0.9rem; color: var(--accent); margin: 0 0 0.5rem 0; }
+.groupage-card h4 { font-family: var(--font-head); font-size: 0.9rem; color: #1b5e20; margin: 0 0 0.5rem 0; }
 
 .chauffeur-task {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid rgba(45,90,50,0.15);
     border-radius: 8px;
-    padding: 0.8rem 1rem;
-    margin: 0.4rem 0;
+    padding: 0.8rem 1rem; margin: 0.4rem 0;
     display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 1px 4px rgba(45,90,50,0.06);
 }
 
 .top-bar {
@@ -427,13 +421,13 @@ def get_dist(dep, arr):
 
 def plotly_theme():
     return dict(
-        plot_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(240,250,241,0.5)',
         paper_bgcolor='rgba(0,0,0,0)',
-        font_color='#a8e6b0',
+        font_color='#1b5e20',
         font_family='DM Sans',
-        colorway=['#52a65a','#6dc977','#a8e6b0','#00e5c0','#f5a623','#e84040'],
-        xaxis=dict(gridcolor='rgba(109,201,119,0.1)', linecolor='rgba(109,201,119,0.2)'),
-        yaxis=dict(gridcolor='rgba(109,201,119,0.1)', linecolor='rgba(109,201,119,0.2)'),
+        colorway=['#2d5a32','#52a65a','#3d7a44','#00897b','#e65100','#c62828'],
+        xaxis=dict(gridcolor='rgba(45,90,50,0.1)', linecolor='rgba(45,90,50,0.15)'),
+        yaxis=dict(gridcolor='rgba(45,90,50,0.1)', linecolor='rgba(45,90,50,0.15)'),
     )
 
 def carte_maroc(points_df, routes=None, zoom=5, height=500, color_col=None):
@@ -467,7 +461,7 @@ def carte_maroc(points_df, routes=None, zoom=5, height=500, color_col=None):
             ))
 
     fig.update_layout(
-        mapbox_style="carto-darkmatter",
+        mapbox_style="carto-positron",
         mapbox_center={"lat": 31.0, "lon": -7.0},
         mapbox_zoom=4.5,
         margin=dict(l=0, r=0, t=0, b=0),
@@ -581,12 +575,12 @@ def show_login():
         except Exception:
             st.markdown(
                 '<p style="font-family:Syne;font-size:1.6rem;font-weight:800;'
-                'color:#f0faf1;text-align:center;margin:0;">Smart Green Logistics</p>',
+                'color:#1b2e1c;text-align:center;margin:0;">Smart Green Logistics</p>',
                 unsafe_allow_html=True
             )
 
         st.markdown(
-            '<p style="text-align:center;color:#6dc977;font-size:0.82rem;'
+            '<p style="text-align:center;color:#2e7d32;font-size:0.82rem;'
             'letter-spacing:0.1em;text-transform:uppercase;margin:0.5rem 0 1.5rem;">',
             unsafe_allow_html=True
         )
@@ -594,7 +588,7 @@ def show_login():
         st.markdown('<hr style="border-color:rgba(109,201,119,0.2);margin:1rem 0;">', unsafe_allow_html=True)
 
         with st.form("login_form"):
-            st.markdown('<p style="font-family:Syne;font-size:1rem;font-weight:700;color:#f0faf1;margin-bottom:1rem;">Connexion</p>', unsafe_allow_html=True)
+            st.markdown('<p style="font-family:Syne;font-size:1rem;font-weight:700;color:#1b2e1c;margin-bottom:1rem;">Connexion</p>', unsafe_allow_html=True)
             user_id  = st.text_input("Identifiant", placeholder="Votre ID")
             password = st.text_input("Mot de passe", type="password", placeholder="••••••••")
             submit   = st.form_submit_button("Acceder a la plateforme", use_container_width=True)
@@ -610,7 +604,7 @@ def show_login():
                     st.error("Identifiants incorrects. Contactez votre responsable.")
 
         st.markdown(
-            '<p style="text-align:center;color:#6dc977;font-size:0.75rem;margin-top:1rem;">'
+            '<p style="text-align:center;color:#2e7d32;font-size:0.75rem;margin-top:1rem;">'
             'Plateforme de logistique durable — Maroc</p>',
             unsafe_allow_html=True
         )
@@ -627,8 +621,8 @@ def show_topbar(user):
         with c2:
             st.markdown(
                 f'<div style="display:flex;align-items:center;gap:1rem;padding:0.3rem 0;">'
-                f'<span style="font-family:Syne;font-size:1.1rem;font-weight:800;color:#f0faf1;">Smart Green Logistics</span>'
-                f'<span style="background:rgba(45,90,50,0.6);border:1px solid rgba(109,201,119,0.3);color:#6dc977;'
+                f'<span style="font-family:Syne;font-size:1.1rem;font-weight:800;color:#1b2e1c;">Smart Green Logistics</span>'
+                f'<span style="background:rgba(45,90,50,0.6);border:1px solid rgba(109,201,119,0.3);color:#2e7d32;'
                 f'font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.2rem 0.6rem;border-radius:20px;text-transform:uppercase;">'
                 f'{role_label}</span>'
                 f'</div>',
@@ -637,7 +631,7 @@ def show_topbar(user):
         with c3:
             st.markdown(
                 f'<div style="text-align:right;padding:0.3rem 0;">'
-                f'<span style="font-family:Syne;font-weight:600;color:#a8e6b0;font-size:0.85rem;">{user["nom"]}</span>'
+                f'<span style="font-family:Syne;font-weight:600;color:#2d5a32;font-size:0.85rem;">{user["nom"]}</span>'
                 f'</div>',
                 unsafe_allow_html=True
             )
@@ -659,8 +653,8 @@ def show_chauffeur():
             st.markdown("**Smart Green Logistics**")
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#f0faf1;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#6dc977;margin:0 0 1rem;">Chauffeur</p>',
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#1b2e1c;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
+            f'<p style="font-size:0.75rem;color:#2e7d32;margin:0 0 1rem;">Chauffeur</p>',
             unsafe_allow_html=True
         )
         st.markdown('<hr style="border-color:rgba(109,201,119,0.2);">', unsafe_allow_html=True)
@@ -715,8 +709,8 @@ def show_chauffeur():
             st.markdown(
                 f'<div class="chauffeur-task">'
                 f'<div>'
-                f'<div style="font-family:Syne;font-weight:700;font-size:0.9rem;color:#f0faf1;">{t["id"]} — {t["client"]}</div>'
-                f'<div style="font-size:0.78rem;color:#6dc977;margin-top:0.2rem;">{t["depart"]} → {t["arrivee"]} &nbsp;|&nbsp; {t["poids"]} &nbsp;|&nbsp; Depart: {t["heure"]}</div>'
+                f'<div style="font-family:Syne;font-weight:700;font-size:0.9rem;color:#1b2e1c;">{t["id"]} — {t["client"]}</div>'
+                f'<div style="font-size:0.78rem;color:#2e7d32;margin-top:0.2rem;">{t["depart"]} → {t["arrivee"]} &nbsp;|&nbsp; {t["poids"]} &nbsp;|&nbsp; Depart: {t["heure"]}</div>'
                 f'</div>'
                 f'<span class="status-pill {pill_class}">{t["statut"]}</span>'
                 f'</div>',
@@ -729,10 +723,10 @@ def show_chauffeur():
         if reponses:
             for r in reponses:
                 st.markdown(
-                    f'<div style="background:rgba(109,201,119,0.08);border:1px solid rgba(109,201,119,0.2);'
+                    f'<div style="background:rgba(109,201,119,0.08);border:1px solid rgba(45,90,50,0.15);'
                     f'border-left:3px solid #52a65a;border-radius:12px;padding:1rem 1.2rem;margin:0.4rem 0;">'
-                    f'<div style="font-family:Syne;font-weight:700;color:#6dc977;font-size:0.82rem;">Reponse du responsable</div>'
-                    f'<div style="font-size:0.85rem;color:#a8e6b0;margin-top:0.3rem;">{r["reponse"]}</div>'
+                    f'<div style="font-family:Syne;font-weight:700;color:#2e7d32;font-size:0.82rem;">Reponse du responsable</div>'
+                    f'<div style="font-size:0.85rem;color:#2d5a32;margin-top:0.3rem;">{r["reponse"]}</div>'
                     f'</div>',
                     unsafe_allow_html=True
                 )
@@ -745,8 +739,8 @@ def show_chauffeur():
 
         c1, c2 = st.columns([3, 1])
         with c2:
-            st.markdown('<div style="background:rgba(26,46,28,0.8);border:1px solid rgba(109,201,119,0.2);border-radius:12px;padding:1rem;">', unsafe_allow_html=True)
-            st.markdown('<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#6dc977;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.8rem;">Route du jour</div>', unsafe_allow_html=True)
+            st.markdown('<div style="background:#f0faf1;border:1px solid rgba(45,90,50,0.15);border-radius:12px;padding:1rem;">', unsafe_allow_html=True)
+            st.markdown('<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#2e7d32;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.8rem;">Route du jour</div>', unsafe_allow_html=True)
             etapes = [
                 ('Casablanca', 'Point de depart — 08:00'),
                 ('Rabat', 'Livraison CMD-001 — 09:30'),
@@ -759,17 +753,17 @@ def show_chauffeur():
                     f'<div style="display:flex;align-items:flex-start;gap:0.6rem;margin:0.5rem 0;">'
                     f'<div style="min-width:22px;height:22px;background:linear-gradient(135deg,{color},#2d5a32);'
                     f'border-radius:50%;display:flex;align-items:center;justify-content:center;'
-                    f'font-family:Syne;font-weight:700;font-size:0.7rem;color:#f0faf1;margin-top:1px;">{i+1}</div>'
-                    f'<div><div style="font-family:Syne;font-weight:700;font-size:0.82rem;color:#f0faf1;">{ville}</div>'
-                    f'<div style="font-size:0.72rem;color:#6dc977;">{desc}</div></div>'
+                    f'font-family:Syne;font-weight:700;font-size:0.7rem;color:#1b2e1c;margin-top:1px;">{i+1}</div>'
+                    f'<div><div style="font-family:Syne;font-weight:700;font-size:0.82rem;color:#1b2e1c;">{ville}</div>'
+                    f'<div style="font-size:0.72rem;color:#2e7d32;">{desc}</div></div>'
                     f'</div>',
                     unsafe_allow_html=True
                 )
             st.markdown('</div>', unsafe_allow_html=True)
 
             st.markdown('<br>', unsafe_allow_html=True)
-            st.markdown('<div style="background:rgba(26,46,28,0.8);border:1px solid rgba(109,201,119,0.2);border-radius:12px;padding:1rem;">', unsafe_allow_html=True)
-            st.markdown('<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#6dc977;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.8rem;">Chemin alternatif</div>', unsafe_allow_html=True)
+            st.markdown('<div style="background:#f0faf1;border:1px solid rgba(45,90,50,0.15);border-radius:12px;padding:1rem;">', unsafe_allow_html=True)
+            st.markdown('<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#2e7d32;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.8rem;">Chemin alternatif</div>', unsafe_allow_html=True)
             st.info("Aucun incident signale sur votre route. Itineraire optimal actif.")
             st.markdown('</div>', unsafe_allow_html=True)
 
@@ -863,8 +857,8 @@ def show_responsable():
             st.markdown("**Smart Green Logistics**")
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#f0faf1;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#6dc977;margin:0 0 0.8rem;">Responsable Logistique</p>',
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#1b2e1c;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
+            f'<p style="font-size:0.75rem;color:#2e7d32;margin:0 0 0.8rem;">Responsable Logistique</p>',
             unsafe_allow_html=True
         )
         st.markdown('<hr style="border-color:rgba(109,201,119,0.2);">', unsafe_allow_html=True)
@@ -922,8 +916,8 @@ def show_responsable():
 
         if opt is None:
             st.markdown(
-                '<div style="background:rgba(26,46,28,0.5);border:1px dashed rgba(109,201,119,0.3);'
-                'border-radius:12px;padding:2rem;text-align:center;color:#6dc977;">'
+                '<div style="background:#f0faf1;border:1px dashed rgba(45,90,50,0.25);'
+                'border-radius:12px;padding:2rem;text-align:center;color:#2e7d32;">'
                 '<p style="font-family:Syne;font-size:1rem;font-weight:600;">Chargez un fichier CSV pour visualiser les indicateurs</p>'
                 '<p style="font-size:0.82rem;color:#52a65a;">Utilisez le panneau lateral pour importer vos commandes</p>'
                 '</div>',
@@ -983,7 +977,7 @@ def show_responsable():
                 f'</div>'
                 f'<div class="compare-card after">'
                 f'<h4>Apres optimisation IA</h4>'
-                f'<div class="compare-stat"><span>Trajets a vide</span><span class="val" style="color:#6dc977;">{ap["trajets_vide"]}</span></div>'
+                f'<div class="compare-stat"><span>Trajets a vide</span><span class="val" style="color:#2e7d32;">{ap["trajets_vide"]}</span></div>'
                 f'<div class="compare-stat"><span>Taux remplissage</span><span class="val">{ap["taux_remplissage"]}%</span></div>'
                 f'<div class="compare-stat"><span>Emissions CO2</span><span class="val">{ap["co2"]} kg</span></div>'
                 f'<div class="compare-stat"><span>Cout carburant</span><span class="val">{ap["cout"]} MAD</span></div>'
@@ -1036,7 +1030,7 @@ def show_responsable():
                     st.markdown(
                         f'<div class="groupage-card">'
                         f'<h4>{cam}</h4>'
-                        f'<div style="font-size:0.78rem;color:#a8e6b0;margin-bottom:0.6rem;">'
+                        f'<div style="font-size:0.78rem;color:#2d5a32;margin-bottom:0.6rem;">'
                         f'{len(g["commandes"])} commande(s) &nbsp;|&nbsp; {round(g["poids"],0)} kg &nbsp;|&nbsp; {round(g["dist"],0)} km'
                         f'</div>'
                         f'<div style="background:rgba(0,0,0,0.3);border-radius:20px;height:6px;margin-bottom:0.4rem;">'
@@ -1044,7 +1038,7 @@ def show_responsable():
                         f'</div>'
                         f'<div style="display:flex;justify-content:space-between;font-size:0.75rem;">'
                         f'<span style="color:{taux_color};font-family:Syne;font-weight:700;">{g["taux"]}% charge</span>'
-                        f'<span style="color:#6dc977;">{round(g["co2"],1)} kg CO2</span>'
+                        f'<span style="color:#2e7d32;">{round(g["co2"],1)} kg CO2</span>'
                         f'</div>'
                         f'</div>',
                         unsafe_allow_html=True
@@ -1074,10 +1068,10 @@ def show_responsable():
                 for cam, g in opt['groupes'].items():
                     villes_str = ', '.join(g['villes_dep'][:2] + g['villes_arr'][:2])
                     st.markdown(
-                        f'<div style="background:rgba(26,46,28,0.7);border:1px solid rgba(109,201,119,0.2);'
+                        f'<div style="background:#f0faf1;border:1px solid rgba(45,90,50,0.15);'
                         f'border-radius:8px;padding:0.6rem 0.8rem;margin:0.3rem 0;">'
-                        f'<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#6dc977;">{cam}</div>'
-                        f'<div style="font-size:0.72rem;color:#a8e6b0;">{villes_str}</div>'
+                        f'<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#2e7d32;">{cam}</div>'
+                        f'<div style="font-size:0.72rem;color:#2d5a32;">{villes_str}</div>'
                         f'</div>',
                         unsafe_allow_html=True
                     )
@@ -1218,7 +1212,7 @@ def show_responsable():
                     urg_color = {'Faible':'#52a65a','Moyen':'#f5a623','Eleve':'#e84040','Critique':'#ff0000'}.get(r.get('urgence','Moyen'), '#f5a623')
                     with st.expander(f"{r['type']} — {r['chauffeur']} — {r.get('commande','')}"):
                         st.markdown(
-                            f'<div style="font-size:0.82rem;color:#a8e6b0;">'
+                            f'<div style="font-size:0.82rem;color:#2d5a32;">'
                             f'<b>Position:</b> {r.get("position","")}<br>'
                             f'<b>Description:</b> {r.get("description","")}<br>'
                             f'<b>Urgence:</b> <span style="color:{urg_color};font-weight:700;">{r.get("urgence","")}</span>'
@@ -1239,7 +1233,7 @@ def show_responsable():
                     st.markdown(
                         f'<div class="chauffeur-task">'
                         f'<div><div style="font-family:Syne;font-weight:700;font-size:0.82rem;">{r["type"]} — {r["chauffeur"]}</div>'
-                        f'<div style="font-size:0.75rem;color:#6dc977;">Reponse: {r.get("reponse","")}</div></div>'
+                        f'<div style="font-size:0.75rem;color:#2e7d32;">Reponse: {r.get("reponse","")}</div></div>'
                         f'<span class="status-pill green">Traitee</span>'
                         f'</div>',
                         unsafe_allow_html=True
