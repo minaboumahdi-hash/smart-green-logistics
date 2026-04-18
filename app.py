@@ -70,9 +70,10 @@ header { visibility: visible; }
 [data-testid="collapsedControl"] { display: none !important; }
 
 /* ── Sidebar ── */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #e8f5e9 0%, #f1f8f1 50%, #ffffff 100%) !important;
-    border-right: 1px solid rgba(255,255,255,0.15);
+section[data-testid="stSidebar"] .stButton > button {
+    background: linear-gradient(135deg, #2d5a32, #3d7a44) !important;
+    color: #ffffff !important;
+    border: 1px solid #52a65a !important;
 }
 section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
 section[data-testid="stSidebar"] * { color: #1b5e20 !important; }
