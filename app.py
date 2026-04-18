@@ -87,8 +87,18 @@ header { background: transparent !important; }
     opacity: 1 !important;
     z-index: 999999 !important;
     position: fixed !important;
-    top: 0.5rem !important;
-    left: 0.5rem !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 !important;
+    padding: 0.4rem !important;
+    background: #2d5a32 !important;
+    border-bottom-right-radius: 8px !important;
+    border-top-left-radius: 0 !important;
+}
+[data-testid="stSidebarCollapsedControl"] button,
+[data-testid="stSidebarCollapsedControl"] svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
 }
 
 /* MASQUER le bouton "ouvrir" quand la sidebar est DEJA ouverte
@@ -116,12 +126,43 @@ section[data-testid="stSidebar"] > div {
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #43a047 0%, #4caf50 50%, #66bb6a 100%) !important;
-    border-right: 1px solid rgba(255,255,255,0.15);
+    background: linear-gradient(180deg, #1b3a1f 0%, #2d5a32 50%, #3d7a44 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.1);
 }
 section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
 section[data-testid="stSidebar"] * { color: #ffffff !important; }
 section[data-testid="stSidebar"] .stMarkdown p { color: #e8f5e9 !important; font-size: 0.85rem; }
+
+/* === Sidebar : file uploader avec fond clair pour lisibilite === */
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] {
+    background: rgba(255,255,255,0.95) !important;
+    border: 1px dashed rgba(255,255,255,0.6) !important;
+}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] * {
+    color: #1b3a1f !important;
+}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] label,
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] small,
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] section {
+    color: #1b3a1f !important;
+}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button {
+    background: #2d5a32 !important;
+    color: #ffffff !important;
+    border: 1px solid #3d7a44 !important;
+}
+
+/* Inputs dans la sidebar : fond blanc, texte sombre */
+section[data-testid="stSidebar"] .stTextInput input,
+section[data-testid="stSidebar"] .stNumberInput input,
+section[data-testid="stSidebar"] .stSelectbox > div > div {
+    background: #ffffff !important;
+    color: #1b3a1f !important;
+}
+section[data-testid="stSidebar"] .stTextInput input,
+section[data-testid="stSidebar"] .stNumberInput input {
+    color: #1b3a1f !important;
+}
 .logo-box {
     display: flex;
     justify-content: center;
