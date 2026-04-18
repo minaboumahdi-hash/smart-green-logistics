@@ -76,6 +76,7 @@ section[data-testid="stSidebar"] {
 }
 section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
 section[data-testid="stSidebar"] * { color: #1b5e20 !important; }
+section[data-testid="stSidebar"] .stButton > button { color: #ffffff !important; }
 section[data-testid="stSidebar"] .stMarkdown p { color: #2e7d32 !important; font-size: 0.85rem; }
 .logo-box {
     display: flex;
