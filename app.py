@@ -77,6 +77,68 @@ header[data-testid="stHeader"] { background: transparent !important; z-index: 1 
 /* eviter que des elements absolus cachent le header personnalise */
 .main-header { margin-top: 60px !important; position: relative !important; z-index: 10 !important; }
 
+/* ── FIX SIDEBAR RESPONSABLE : labels, file uploader & boutons +/- lisibles ── */
+/* Labels (Charger CSV, Nombre de camions, ...) en blanc bien visible */
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] label p,
+section[data-testid="stSidebar"] .stFileUploader label,
+section[data-testid="stSidebar"] .stNumberInput label,
+section[data-testid="stSidebar"] .stTextInput label,
+section[data-testid="stSidebar"] .stSelectbox label {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+/* Zone du file uploader : fond blanc translucide + texte sombre */
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] section,
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {
+    background: #ffffff !important;
+    border: 2px dashed #2d5a32 !important;
+    color: #1b2e1c !important;
+}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] section *,
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] * {
+    color: #1b2e1c !important;
+}
+/* Bouton "Browse files" / Upload */
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button {
+    background: #2d5a32 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+section[data-testid="stSidebar"] [data-testid="stFileUploader"] button * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+/* Inputs number : fond blanc + texte sombre */
+section[data-testid="stSidebar"] .stNumberInput input,
+section[data-testid="stSidebar"] .stTextInput input {
+    background: #ffffff !important;
+    color: #1b2e1c !important;
+    border: 1px solid rgba(255,255,255,0.4) !important;
+}
+/* Boutons − et + des number_input : fond vert foncé + icônes blanches */
+section[data-testid="stSidebar"] .stNumberInput button,
+section[data-testid="stSidebar"] [data-testid="stNumberInput"] button {
+    background: #2d5a32 !important;
+    border: 1px solid #1b5e20 !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+section[data-testid="stSidebar"] .stNumberInput button:hover,
+section[data-testid="stSidebar"] [data-testid="stNumberInput"] button:hover {
+    background: #1b5e20 !important;
+}
+section[data-testid="stSidebar"] .stNumberInput button svg,
+section[data-testid="stSidebar"] .stNumberInput button svg *,
+section[data-testid="stSidebar"] [data-testid="stNumberInput"] button svg,
+section[data-testid="stSidebar"] [data-testid="stNumberInput"] button svg * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
+    opacity: 1 !important;
+}
+
 h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Global background ── */
@@ -1466,4 +1528,3 @@ else:
         show_responsable()
     else:
         st.error("Role non reconnu.")
-
