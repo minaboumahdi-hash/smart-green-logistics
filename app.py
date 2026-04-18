@@ -74,24 +74,7 @@ section[data-testid="stSidebar"] {
     border-right: 1px solid rgba(255,255,255,0.15);
 }
 section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
-/* Ne cible que le texte, pas les boutons pour éviter les conflits */
-section[data-testid="stSidebar"] .stMarkdown p, 
-section[data-testid="stSidebar"] label { 
-    color: #ffffff !important; 
-}
-
-/* Force l'apparence des boutons de navigation dans la sidebar */
-section[data-testid="stSidebar"] .stButton > button {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    transition: all 0.3s ease;
-}
-
-section[data-testid="stSidebar"] .stButton > button:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-color: #ffffff !important;
-}
+section[data-testid="stSidebar"] * { color: #ffffff !important; }
 section[data-testid="stSidebar"] .stMarkdown p { color: #e8f5e9 !important; font-size: 0.85rem; }
 .logo-box {
     display: flex;
@@ -670,118 +653,203 @@ def show_topbar(user):
 def show_chauffeur():
     user = st.session_state.user
 
-    # ── SIDEBAR CONFIGURATION ─────────────────────────────────────────────
     with st.sidebar:
-        # 1. Logo avec fallback sécurisé
         try:
             st.image("assets/logo-removebg-preview.png", width=140)
         except Exception:
-            st.markdown('<h2 style="color:white; font-family:Syne;">SGL</h2>', unsafe_allow_html=True)
+            st.markdown('<b style="color:#ffffff;">Smart Green Logistics</b>', unsafe_allow_html=True)
 
-        # 2. Profil Utilisateur
         st.markdown(
-            f'''
-            <div style="margin: 1rem 0;">
-                <p style="font-family:Syne; font-weight:700; font-size:1.1rem; color:#ffffff; margin-bottom:0;">{user["nom"]}</p>
-                <p style="font-size:0.85rem; color:#e8f5e9; opacity:0.8;">Chauffeur Partenaire</p>
-            </div>
-            ''', 
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.1rem;">{user["nom"]}</p>'
+            f'<p style="font-size:0.75rem;color:#e8f5e9;margin:0 0 0.8rem;">Chauffeur</p>',
             unsafe_allow_html=True
         )
-        
-        st.markdown('<hr style="border-color:rgba(255,255,255,0.2); margin-bottom:1.5rem;">', unsafe_allow_html=True)
+        st.markdown('<hr style="border-color:rgba(255,255,255,0.3);">', unsafe_allow_html=True)
 
-        # 3. Alertes Réclamations
-        nb_reclamations = len([r for r in st.session_state.reclamations 
+        nb_reclamations = len([r for r in st.session_state.reclamations
                                 if r.get('chauffeur') == user['nom'] and not r.get('traitee')])
         if nb_reclamations > 0:
             st.markdown(
-                f'''
-                <div style="background:rgba(232,64,64,0.2); border:1px solid #e84040; border-radius:10px; padding:0.8rem; margin-bottom:1rem;">
-                    <span style="color:white; font-family:Syne; font-size:0.8rem; font-weight:700;">
-                        ⚠️ {nb_reclamations} message(s) urgent(s)
-                    </span>
-                </div>
-                ''', 
+                f'<div style="background:rgba(232,64,64,0.15);border:1px solid rgba(232,64,64,0.4);'
+                f'border-radius:8px;padding:0.6rem 0.8rem;margin-bottom:0.8rem;">'
+                f'<span style="color:#e84040;font-family:Syne;font-size:0.78rem;font-weight:700;">'
+                f'{nb_reclamations} reclamation(s) en attente</span></div>',
                 unsafe_allow_html=True
             )
 
-        # 4. Menu de Navigation (Boutons forcés en blanc via CSS)
-        st.markdown('<p style="font-size:0.7rem; color:#6dc977; text-transform:uppercase; font-weight:700; letter-spacing:0.1em;">Menu Principal</p>', unsafe_allow_html=True)
-        
-        if st.button("📋 Mes tâches", use_container_width=True, key="nav_taches"):
-            st.session_state['chauffeur_page'] = 'taches'
-            st.rerun()
-            
-        if st.button("🗺️ Carte — Itinéraire", use_container_width=True, key="nav_carte"):
-            st.session_state['chauffeur_page'] = 'carte'
-            st.rerun()
-            
-        if st.button("📦 Livraisons", use_container_width=True, key="nav_livraisons"):
-            st.session_state['chauffeur_page'] = 'livraisons'
-            st.rerun()
-            
-        if st.button("⚠️ Signaler un problème", use_container_width=True, key="nav_signaler"):
-            st.session_state['chauffeur_page'] = 'signaler'
-            st.rerun()
+        st.markdown('<div style="font-size:0.68rem;color:#52a65a;text-transform:uppercase;letter-spacing:0.1em;padding:0.5rem 0 0.3rem;font-weight:700;">Navigation</div>', unsafe_allow_html=True)
 
-        # 5. Déconnexion (Bas de page)
-        st.markdown('<div style="margin-top: 3rem;"></div>', unsafe_allow_html=True)
-        st.markdown('<hr style="border-color:rgba(255,255,255,0.1);">', unsafe_allow_html=True)
-        if st.button("🚪 Déconnexion", use_container_width=True, key="logout_btn_sidebar"):
+        if st.button("Mes taches", use_container_width=True):
+            st.session_state['chauffeur_page'] = 'taches'
+        if st.button("Carte — Ma route", use_container_width=True):
+            st.session_state['chauffeur_page'] = 'carte'
+        if st.button("Livraisons", use_container_width=True):
+            st.session_state['chauffeur_page'] = 'livraisons'
+        if st.button("Signaler un probleme", use_container_width=True):
+            st.session_state['chauffeur_page'] = 'signaler'
+
+        st.markdown('<hr style="border-color:rgba(109,201,119,0.2);">', unsafe_allow_html=True)
+        if st.button("Deconnexion", use_container_width=True):
             st.session_state.logged_in = False
             st.session_state.user = None
             st.rerun()
 
-    # ── CONTENU PRINCIPAL ──────────────────────────────────────────────────
     show_topbar(user)
+
     page = st.session_state.get('chauffeur_page', 'taches')
 
+    # ── Taches ─────────────────────────────────────────────────────────────
     if page == 'taches':
-        st.markdown('<div class="section-title">Mes Missions du Jour</div>', unsafe_allow_html=True)
-        
-        # Données fictives (Exemple)
+        st.markdown('<div class="section-title">Taches assignees</div>', unsafe_allow_html=True)
+
         taches = [
-            {'id': 'CMD-001', 'client': 'Maroc Textiles SA', 'depart': 'Casablanca', 'arrivee': 'Rabat', 'poids': '2.4T', 'heure': '08:00', 'statut': 'En cours'},
-            {'id': 'CMD-002', 'client': 'Atlas Distribution', 'depart': 'Rabat', 'arrivee': 'Salé', 'poids': '1.8T', 'heure': '11:30', 'statut': 'En attente'}
+            {'id': 'CMD-001', 'client': 'Maroc Textiles SA', 'depart': 'Casablanca', 'arrivee': 'Rabat',
+             'poids': '2 400 kg', 'heure': '08:00', 'statut': 'En cours'},
+            {'id': 'CMD-002', 'client': 'Atlas Distribution', 'depart': 'Rabat', 'arrivee': 'Sale',
+             'poids': '1 800 kg', 'heure': '11:30', 'statut': 'En attente'},
+            {'id': 'CMD-003', 'client': 'Kenitra Commerce', 'depart': 'Sale', 'arrivee': 'Kenitra',
+             'poids': '3 200 kg', 'heure': '14:00', 'statut': 'En attente'},
         ]
 
         for t in taches:
-            pill_color = "green" if t['statut'] == "En cours" else "yellow"
+            pill_class = {'En cours': 'green', 'En attente': 'yellow', 'Termine': 'grey'}.get(t['statut'], 'grey')
             st.markdown(
-                f'''
-                <div class="chauffeur-task">
-                    <div>
-                        <div style="font-family:Syne; font-weight:700; color:#1b2e1c;">{t["id"]} | {t["client"]}</div>
-                        <div style="font-size:0.8rem; color:#2e7d32;">{t["depart"]} → {t["arrivee"]} ({t["poids"]})</div>
-                    </div>
-                    <span class="status-pill {pill_color}">{t["statut"]}</span>
-                </div>
-                ''', 
+                f'<div class="chauffeur-task">'
+                f'<div>'
+                f'<div style="font-family:Syne;font-weight:700;font-size:0.9rem;color:#1b2e1c;">{t["id"]} — {t["client"]}</div>'
+                f'<div style="font-size:0.78rem;color:#2e7d32;margin-top:0.2rem;">{t["depart"]} → {t["arrivee"]} &nbsp;|&nbsp; {t["poids"]} &nbsp;|&nbsp; Depart: {t["heure"]}</div>'
+                f'</div>'
+                f'<span class="status-pill {pill_class}">{t["statut"]}</span>'
+                f'</div>',
                 unsafe_allow_html=True
             )
 
+        st.markdown('<div class="section-title">Reclamations recues</div>', unsafe_allow_html=True)
+        reponses = [r for r in st.session_state.reclamations
+                    if r.get('chauffeur') == user['nom'] and r.get('reponse')]
+        if reponses:
+            for r in reponses:
+                st.markdown(
+                    f'<div style="background:rgba(109,201,119,0.08);border:1px solid rgba(45,90,50,0.15);'
+                    f'border-left:3px solid #52a65a;border-radius:12px;padding:1rem 1.2rem;margin:0.4rem 0;">'
+                    f'<div style="font-family:Syne;font-weight:700;color:#2e7d32;font-size:0.82rem;">Reponse du responsable</div>'
+                    f'<div style="font-size:0.85rem;color:#2d5a32;margin-top:0.3rem;">{r["reponse"]}</div>'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
+        else:
+            st.info("Aucune reponse de votre responsable pour le moment.")
+
+    # ── Carte ──────────────────────────────────────────────────────────────
     elif page == 'carte':
-        st.markdown('<div class="section-title">Itinéraire Temps Réel</div>', unsafe_allow_html=True)
-        st.info("La carte est optimisée pour votre trajet actuel (Casablanca → Rabat).")
-        # Insérer ici votre code de carte Plotly existant...
+        st.markdown('<div class="section-title">Carte — Votre route du jour</div>', unsafe_allow_html=True)
 
+        c1, c2 = st.columns([3, 1])
+        with c2:
+            st.markdown('<div style="background:#f0faf1;border:1px solid rgba(45,90,50,0.15);border-radius:12px;padding:1rem;">', unsafe_allow_html=True)
+            st.markdown('<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#2e7d32;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.8rem;">Route du jour</div>', unsafe_allow_html=True)
+            etapes = [
+                ('Casablanca', 'Point de depart — 08:00'),
+                ('Rabat', 'Livraison CMD-001 — 09:30'),
+                ('Sale', 'Livraison CMD-002 — 10:15'),
+                ('Kenitra', 'Livraison CMD-003 — 11:45'),
+            ]
+            for i, (ville, desc) in enumerate(etapes):
+                color = '#6dc977' if i == 0 else '#52a65a'
+                st.markdown(
+                    f'<div style="display:flex;align-items:flex-start;gap:0.6rem;margin:0.5rem 0;">'
+                    f'<div style="min-width:22px;height:22px;background:linear-gradient(135deg,{color},#2d5a32);'
+                    f'border-radius:50%;display:flex;align-items:center;justify-content:center;'
+                    f'font-family:Syne;font-weight:700;font-size:0.7rem;color:#1b2e1c;margin-top:1px;">{i+1}</div>'
+                    f'<div><div style="font-family:Syne;font-weight:700;font-size:0.82rem;color:#1b2e1c;">{ville}</div>'
+                    f'<div style="font-size:0.72rem;color:#2e7d32;">{desc}</div></div>'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
+            st.markdown('</div>', unsafe_allow_html=True)
+
+            st.markdown('<br>', unsafe_allow_html=True)
+            st.markdown('<div style="background:#f0faf1;border:1px solid rgba(45,90,50,0.15);border-radius:12px;padding:1rem;">', unsafe_allow_html=True)
+            st.markdown('<div style="font-family:Syne;font-weight:700;font-size:0.8rem;color:#2e7d32;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.8rem;">Chemin alternatif</div>', unsafe_allow_html=True)
+            st.info("Aucun incident signale sur votre route. Itineraire optimal actif.")
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        with c1:
+            route_villes = ['Casablanca', 'Rabat', 'Sale', 'Kenitra']
+            pts = pd.DataFrame([
+                {'lat': VILLES_MAROC[v][0], 'lon': VILLES_MAROC[v][1], 'ville': v, 'ordre': i+1}
+                for i, v in enumerate(route_villes)
+            ])
+            routes_lines = []
+            for i in range(len(route_villes)-1):
+                c1v = VILLES_MAROC[route_villes[i]]
+                c2v = VILLES_MAROC[route_villes[i+1]]
+                routes_lines.append({'dep': c1v, 'arr': c2v, 'color': '#6dc977', 'name': f'Segment {i+1}'})
+
+            fig = carte_maroc(pts, routes=routes_lines, height=480)
+            fig.update_traces(marker=dict(size=12, color='#6dc977'))
+            st.plotly_chart(fig, use_container_width=True)
+
+    # ── Livraisons ─────────────────────────────────────────────────────────
     elif page == 'livraisons':
-        st.markdown('<div class="section-title">Valider une Livraison</div>', unsafe_allow_html=True)
-        with st.container(border=True):
-            cmd = st.selectbox("Sélectionner la commande", ["CMD-001", "CMD-002"])
-            signature = st.text_input("Nom du client réceptionnaire")
-            if st.button("Confirmer la remise du colis", type="primary"):
-                st.success("Livraison enregistrée avec succès !")
-                st.balloons()
+        st.markdown('<div class="section-title">Confirmer une livraison</div>', unsafe_allow_html=True)
 
+        col1, col2 = st.columns(2)
+        with col1:
+            commande = st.selectbox("Commande", ['CMD-001', 'CMD-002', 'CMD-003'])
+            heure    = st.text_input("Heure effective de livraison", placeholder="ex: 09:45")
+            note     = st.text_area("Observation", placeholder="Etat du colis, remarques...")
+        with col2:
+            signature = st.text_input("Nom du receptionnaire")
+            photo_ok  = st.checkbox("Bon de livraison signe")
+
+        if st.button("Confirmer la livraison", use_container_width=True):
+            st.session_state.commandes_livrees[commande] = {
+                'heure': heure, 'note': note, 'signature': signature
+            }
+            st.success(f"Livraison {commande} confirmee. Heure: {heure}")
+            st.balloons()
+
+        st.markdown('<div class="section-title">Bilan livraisons du jour</div>', unsafe_allow_html=True)
+        livrees   = len(st.session_state.commandes_livrees)
+        total     = 3
+        en_retard = 0
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Livrees", f"{livrees}/{total}")
+        col2.metric("A l'heure", livrees - en_retard)
+        col3.metric("En retard / Pannes", en_retard)
+
+    # ── Signaler ───────────────────────────────────────────────────────────
     elif page == 'signaler':
-        st.markdown('<div class="section-title">Signaler un Incident</div>', unsafe_allow_html=True)
-        with st.form("incident_form"):
-            type_i = st.selectbox("Type", ["Panne", "Embouteillage", "Accident", "Autre"])
-            desc = st.text_area("Détails")
-            if st.form_submit_button("Envoyer l'alerte"):
-                st.warning("Alerte envoyée au centre de contrôle.")
+        st.markdown('<div class="section-title">Signaler un incident</div>', unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            type_pb   = st.selectbox("Type d'incident", [
+                "Panne vehicule", "Colis endommage",
+                "Embouteillage / Retard", "Adresse introuvable",
+                "Accident", "Autre"
+            ])
+            commande  = st.selectbox("Commande concernee", ['CMD-001', 'CMD-002', 'CMD-003'])
+            position  = st.selectbox("Position actuelle", VILLES_LIST)
+        with col2:
+            desc      = st.text_area("Description detaillee", height=130)
+            urgence   = st.select_slider("Niveau d'urgence", options=["Faible", "Moyen", "Eleve", "Critique"])
+
+        if st.button("Envoyer le signalement", use_container_width=True):
+            rec = {
+                'chauffeur': user['nom'], 'type': type_pb,
+                'commande': commande, 'position': position,
+                'description': desc, 'urgence': urgence,
+                'traitee': False, 'reponse': None
+            }
+            st.session_state.reclamations.append(rec)
+            if type_pb in ["Embouteillage / Retard", "Adresse introuvable"]:
+                # Route alternative
+                alt = [v for v in VILLES_LIST if v != position][:3]
+                st.success(f"Signalement envoye. Route alternative suggeree via: {' → '.join(alt)}")
+            else:
+                st.success("Signalement transmis au responsable. En attente de reponse.")
 
 # ════════════════════════════════════════════════════════════════════════════
 # INTERFACE RESPONSABLE
