@@ -96,9 +96,16 @@ header { background: transparent !important; }
     border-top-left-radius: 0 !important;
 }
 [data-testid="stSidebarCollapsedControl"] button,
-[data-testid="stSidebarCollapsedControl"] svg {
+[data-testid="stSidebarCollapsedControl"] button *,
+[data-testid="stSidebarCollapsedControl"] svg,
+[data-testid="stSidebarCollapsedControl"] svg * {
     color: #ffffff !important;
     fill: #ffffff !important;
+    stroke: #ffffff !important;
+    background: transparent !important;
+}
+[data-testid="stSidebarCollapsedControl"] button:hover {
+    background: #3d7a44 !important;
 }
 
 /* MASQUER le bouton "ouvrir" quand la sidebar est DEJA ouverte
@@ -162,6 +169,26 @@ section[data-testid="stSidebar"] .stSelectbox > div > div {
 section[data-testid="stSidebar"] .stTextInput input,
 section[data-testid="stSidebar"] .stNumberInput input {
     color: #1b3a1f !important;
+}
+
+/* Boutons +/- des stNumberInput dans la sidebar : fond vert fonce + icone blanche bien visible */
+section[data-testid="stSidebar"] .stNumberInput button,
+section[data-testid="stSidebar"] .stNumberInput [data-testid="stNumberInputStepUp"],
+section[data-testid="stSidebar"] .stNumberInput [data-testid="stNumberInputStepDown"] {
+    background: #2d5a32 !important;
+    border: 1px solid #3d7a44 !important;
+    color: #ffffff !important;
+}
+section[data-testid="stSidebar"] .stNumberInput button *,
+section[data-testid="stSidebar"] .stNumberInput button svg,
+section[data-testid="stSidebar"] .stNumberInput button svg * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
+    opacity: 1 !important;
+}
+section[data-testid="stSidebar"] .stNumberInput button:hover {
+    background: #3d7a44 !important;
 }
 .logo-box {
     display: flex;
