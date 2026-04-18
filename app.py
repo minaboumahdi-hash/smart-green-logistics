@@ -70,12 +70,19 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%) !important;
-    border-right: 1px solid rgba(255,255,255,0.1);
+    background: linear-gradient(180deg, #2e7d32 0%, #388e3c 50%, #43a047 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.15);
 }
 section[data-testid="stSidebar"] > div { padding-top: 0 !important; }
 section[data-testid="stSidebar"] * { color: #ffffff !important; }
 section[data-testid="stSidebar"] .stMarkdown p { color: #c8e6c9 !important; font-size: 0.85rem; }
+.logo-box {
+    background: rgba(255,255,255,0.92);
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
 
 /* ── Inputs ── */
 .stTextInput input, .stNumberInput input, .stSelectbox select,
@@ -647,17 +654,19 @@ def show_chauffeur():
     user = st.session_state.user
 
     with st.sidebar:
+        st.markdown('<div class="logo-box">', unsafe_allow_html=True)
         try:
-            st.image("assets/logo-removebg-preview.png", width=130)
+            st.image("assets/logo-removebg-preview.png", width=120)
         except Exception:
-            st.markdown("**Smart Green Logistics**")
+            st.markdown('<b>Smart Green Logistics</b>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#1b2e1c;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#2e7d32;margin:0 0 1rem;">Chauffeur</p>',
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.1rem;">{user["nom"]}</p>'
+            f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 0.8rem;">Chauffeur</p>',
             unsafe_allow_html=True
         )
-        st.markdown('<hr style="border-color:rgba(109,201,119,0.2);">', unsafe_allow_html=True)
+        st.markdown('<hr style="border-color:rgba(255,255,255,0.2);">', unsafe_allow_html=True)
 
         nb_reclamations = len([r for r in st.session_state.reclamations
                                 if r.get('chauffeur') == user['nom'] and not r.get('traitee')])
@@ -851,17 +860,19 @@ def show_responsable():
     user = st.session_state.user
 
     with st.sidebar:
+        st.markdown('<div class="logo-box">', unsafe_allow_html=True)
         try:
-            st.image("assets/logo-removebg-preview.png", width=130)
+            st.image("assets/logo-removebg-preview.png", width=120)
         except Exception:
-            st.markdown("**Smart Green Logistics**")
+            st.markdown('<b>Smart Green Logistics</b>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown(
-            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#1b2e1c;margin:0.5rem 0 0.2rem;">{user["nom"]}</p>'
-            f'<p style="font-size:0.75rem;color:#2e7d32;margin:0 0 0.8rem;">Responsable Logistique</p>',
+            f'<p style="font-family:Syne;font-weight:700;font-size:0.95rem;color:#ffffff;margin:0.3rem 0 0.1rem;">{user["nom"]}</p>'
+            f'<p style="font-size:0.75rem;color:#c8e6c9;margin:0 0 0.8rem;">Responsable Logistique</p>',
             unsafe_allow_html=True
         )
-        st.markdown('<hr style="border-color:rgba(109,201,119,0.2);">', unsafe_allow_html=True)
+        st.markdown('<hr style="border-color:rgba(255,255,255,0.2);">', unsafe_allow_html=True)
 
         st.markdown('<div class="sidebar-section">Parametres</div>', unsafe_allow_html=True)
         uploaded_file   = st.file_uploader("Charger CSV commandes", type=["csv","xlsx"])
