@@ -70,10 +70,18 @@ h1,h2,h3,h4 { font-family: var(--font-head); }
 footer { visibility: hidden; }
 header { background: transparent !important; }
 
-/* FORCER la visibilite du bouton de controle de la sidebar */
-[data-testid="stSidebarCollapsedControl"],
-[data-testid="stSidebarCollapseButton"],
-button[kind="header"] {
+/* === UN SEUL bouton pour ouvrir/fermer la sidebar === */
+
+/* Bouton qui apparait QUAND la sidebar est OUVERTE (fleche << pour fermer) */
+[data-testid="stSidebarCollapseButton"] {
+    visibility: visible !important;
+    display: flex !important;
+    opacity: 1 !important;
+    z-index: 999999 !important;
+}
+
+/* Bouton qui apparait QUAND la sidebar est FERMEE (fleche >> pour ouvrir) */
+[data-testid="stSidebarCollapsedControl"] {
     visibility: visible !important;
     display: flex !important;
     opacity: 1 !important;
@@ -83,26 +91,26 @@ button[kind="header"] {
     left: 0.5rem !important;
 }
 
-/* FORCER la sidebar a etre visible */
+/* MASQUER le bouton "ouvrir" quand la sidebar est DEJA ouverte
+   (evite d'avoir les deux fleches en meme temps) */
+section[data-testid="stSidebar"][aria-expanded="true"] ~ [data-testid="stSidebarCollapsedControl"],
+[data-testid="stSidebar"]:not([aria-expanded="false"]) ~ * [data-testid="stSidebarCollapsedControl"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Sidebar visible par defaut */
 section[data-testid="stSidebar"] {
     display: block !important;
     visibility: visible !important;
-    transform: translateX(0) !important;
     min-width: 280px !important;
     max-width: 280px !important;
     width: 280px !important;
-    margin-left: 0 !important;
 }
 
 section[data-testid="stSidebar"] > div {
     display: block !important;
     visibility: visible !important;
-}
-
-/* Empecher Streamlit de la replier */
-section[data-testid="stSidebar"][aria-expanded="false"] {
-    transform: translateX(0) !important;
-    margin-left: 0 !important;
 }
 .block-container { padding: 1.5rem 2rem; max-width: 1600px; }
 
@@ -1341,4 +1349,3 @@ else:
         show_responsable()
     else:
         st.error("Role non reconnu.")
-
