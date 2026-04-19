@@ -1,0 +1,26 @@
+[
+  {
+    "id_camion": "CAM-001",
+    "type_camion": "Poids lourd standard",
+    "capacite_poids_kg": 12000,
+    "capacite_volume_m3": 40
+  },
+  {
+    "id_camion": "CAM-002",
+    "type_camion": "Poids lourd standard",
+    "capacite_poids_kg": 12000,
+    "capacite_volume_m3": 40
+  },
+  {
+    "id_camion": "CAM-003",
+    "type_camion": "Poids lourd standard",
+    "capacite_poids_kg": 12000,
+    "capacite_volume_m3": 40
+  },
+  {
+    "id_camion": "CAM-004",
+    "type_camion": "Poids lourd standard",
+    "capacite_poids_kg": 12000,
+    "capacite_volume_m3": 40
+  }
+]
